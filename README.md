@@ -1,0 +1,3 @@
+# avalanche-forecast-app
+
+yay!
