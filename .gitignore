@@ -1,0 +1,4 @@
+HelloWorld/node_modules/
+node/nodejs-v1/node_modules/
+.vs/*
+/.vs/slnx.sqlite
