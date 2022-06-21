@@ -29,3 +29,9 @@ https://docs.microsoft.com/en-us/windows/dev-environment/javascript/react-native
 
 seems like using VS Code is the way to go, also works on Linux
 https://code.visualstudio.com/docs/?dv=win64user
+
+plugin to debug react native code
+https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native
+
+there is an android management studio that can be used for an emulator in windows 
+https://developer.android.com/studio
