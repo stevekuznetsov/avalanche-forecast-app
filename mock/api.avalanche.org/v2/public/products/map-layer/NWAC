@@ -1,0 +1,1860 @@
+{
+    "type": "FeatureCollection",
+    "features":
+    [
+        {
+            "type": "Feature",
+            "id": 419,
+            "properties":
+            {
+                "name": "Olympics",
+                "center": "Northwest Avalanche Center",
+                "center_link": "https://www.nwac.us/",
+                "timezone": "America/Los_Angeles",
+                "center_id": "NWAC",
+                "state": "WA",
+                "off_season": false,
+                "travel_advice": "Watch for signs of unstable snow such as recent avalanches, cracking in the snow, and audible collapsing. Avoid traveling on or under similar slopes.",
+                "danger": "no rating",
+                "danger_level": -1,
+                "color": "#888888",
+                "stroke": "#104efb",
+                "font_color": "#ffffff",
+                "link": "http://www.nwac.us/avalanche-forecast/#/olympics",
+                "start_date": "2022-05-02T16:55:00",
+                "end_date": "2022-11-01T01:30:00",
+                "fillOpacity": 0.5,
+                "fillIncrement": 0.1,
+                "warning":
+                {
+                    "product": null
+                }
+            },
+            "geometry":
+            {
+                "type": "Polygon",
+                "coordinates":
+                [
+                    [
+                        [
+                            -123.4379,
+                            48.0261
+                        ],
+                        [
+                            -123.2369,
+                            47.9749
+                        ],
+                        [
+                            -123.124,
+                            47.9376
+                        ],
+                        [
+                            -123.0239,
+                            47.899
+                        ],
+                        [
+                            -122.9942,
+                            47.8497
+                        ],
+                        [
+                            -122.9858,
+                            47.8068
+                        ],
+                        [
+                            -122.992,
+                            47.761
+                        ],
+                        [
+                            -123.0255,
+                            47.7084
+                        ],
+                        [
+                            -123.0623,
+                            47.6492
+                        ],
+                        [
+                            -123.224,
+                            47.4974
+                        ],
+                        [
+                            -123.2937,
+                            47.4914
+                        ],
+                        [
+                            -123.4628,
+                            47.5335
+                        ],
+                        [
+                            -123.4971,
+                            47.5454
+                        ],
+                        [
+                            -123.5922,
+                            47.5885
+                        ],
+                        [
+                            -123.7994,
+                            47.7034
+                        ],
+                        [
+                            -123.8318,
+                            47.7439
+                        ],
+                        [
+                            -123.895,
+                            47.8245
+                        ],
+                        [
+                            -123.9091,
+                            47.8898
+                        ],
+                        [
+                            -123.9016,
+                            47.9255
+                        ],
+                        [
+                            -123.7982,
+                            48.0414
+                        ],
+                        [
+                            -123.7736,
+                            48.0596
+                        ],
+                        [
+                            -123.7465,
+                            48.0658
+                        ],
+                        [
+                            -123.6392,
+                            48.0579
+                        ],
+                        [
+                            -123.5523,
+                            48.0484
+                        ],
+                        [
+                            -123.4379,
+                            48.0261
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 431,
+            "properties":
+            {
+                "name": "Mt Hood",
+                "center": "Northwest Avalanche Center",
+                "center_link": "https://www.nwac.us/",
+                "timezone": "America/Los_Angeles",
+                "center_id": "NWAC",
+                "state": "OR",
+                "off_season": false,
+                "travel_advice": "Watch for signs of unstable snow such as recent avalanches, cracking in the snow, and audible collapsing. Avoid traveling on or under similar slopes.",
+                "danger": "no rating",
+                "danger_level": -1,
+                "color": "#888888",
+                "stroke": "#104efb",
+                "font_color": "#ffffff",
+                "link": "http://www.nwac.us/avalanche-forecast/#/mt-hood\n",
+                "start_date": "2022-05-02T16:55:00",
+                "end_date": "2022-11-01T01:30:00",
+                "fillOpacity": 0.5,
+                "fillIncrement": 0.1,
+                "warning":
+                {
+                    "product": null
+                }
+            },
+            "geometry":
+            {
+                "type": "Polygon",
+                "coordinates":
+                [
+                    [
+                        [
+                            -121.9298,
+                            45.2792
+                        ],
+                        [
+                            -121.952,
+                            45.326
+                        ],
+                        [
+                            -121.9315,
+                            45.3659
+                        ],
+                        [
+                            -121.8805,
+                            45.4445
+                        ],
+                        [
+                            -121.8473,
+                            45.4646
+                        ],
+                        [
+                            -121.8032,
+                            45.4794
+                        ],
+                        [
+                            -121.7216,
+                            45.4921
+                        ],
+                        [
+                            -121.6435,
+                            45.4839
+                        ],
+                        [
+                            -121.5219,
+                            45.4578
+                        ],
+                        [
+                            -121.431,
+                            45.3475
+                        ],
+                        [
+                            -121.477,
+                            45.2279
+                        ],
+                        [
+                            -121.5565,
+                            45.2055
+                        ],
+                        [
+                            -121.623,
+                            45.1939
+                        ],
+                        [
+                            -121.7036,
+                            45.1916
+                        ],
+                        [
+                            -121.8579,
+                            45.2292
+                        ],
+                        [
+                            -121.92,
+                            45.2646
+                        ],
+                        [
+                            -121.9298,
+                            45.2792
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 423,
+            "properties":
+            {
+                "name": "Stevens Pass",
+                "center": "Northwest Avalanche Center",
+                "center_link": "https://www.nwac.us/",
+                "timezone": "America/Los_Angeles",
+                "center_id": "NWAC",
+                "state": "WA",
+                "off_season": false,
+                "travel_advice": "Watch for signs of unstable snow such as recent avalanches, cracking in the snow, and audible collapsing. Avoid traveling on or under similar slopes.",
+                "danger": "no rating",
+                "danger_level": -1,
+                "color": "#888888",
+                "stroke": "#104efb",
+                "font_color": "#ffffff",
+                "link": "http://www.nwac.us/avalanche-forecast/#/stevens-pass",
+                "start_date": "2022-05-02T16:55:00",
+                "end_date": "2022-11-01T01:30:00",
+                "fillOpacity": 0.5,
+                "fillIncrement": 0.1,
+                "warning":
+                {
+                    "product": null
+                }
+            },
+            "geometry":
+            {
+                "type": "Polygon",
+                "coordinates":
+                [
+                    [
+                        [
+                            -120.9653,
+                            47.6367
+                        ],
+                        [
+                            -121.0176,
+                            47.6265
+                        ],
+                        [
+                            -121.1799,
+                            47.6018
+                        ],
+                        [
+                            -121.208,
+                            47.6004
+                        ],
+                        [
+                            -121.2373,
+                            47.607
+                        ],
+                        [
+                            -121.2622,
+                            47.6362
+                        ],
+                        [
+                            -121.2929,
+                            47.6666
+                        ],
+                        [
+                            -121.3245,
+                            47.7189
+                        ],
+                        [
+                            -121.3,
+                            47.7786
+                        ],
+                        [
+                            -121.2581,
+                            47.8116
+                        ],
+                        [
+                            -121.1126,
+                            47.8567
+                        ],
+                        [
+                            -121.0288,
+                            47.8785
+                        ],
+                        [
+                            -120.9162,
+                            47.8359
+                        ],
+                        [
+                            -120.8941,
+                            47.8101
+                        ],
+                        [
+                            -120.8678,
+                            47.7272
+                        ],
+                        [
+                            -120.8661,
+                            47.6986
+                        ],
+                        [
+                            -120.9006,
+                            47.6512
+                        ],
+                        [
+                            -120.9653,
+                            47.6367
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 427,
+            "properties":
+            {
+                "name": "Snoqualmie Pass",
+                "center": "Northwest Avalanche Center",
+                "center_link": "https://www.nwac.us/",
+                "timezone": "America/Los_Angeles",
+                "center_id": "NWAC",
+                "state": "WA",
+                "off_season": false,
+                "travel_advice": "Watch for signs of unstable snow such as recent avalanches, cracking in the snow, and audible collapsing. Avoid traveling on or under similar slopes.",
+                "danger": "no rating",
+                "danger_level": -1,
+                "color": "#888888",
+                "stroke": "#104efb",
+                "font_color": "#ffffff",
+                "link": "http://www.nwac.us/avalanche-forecast/#/snoqualmie-pass",
+                "start_date": "2022-05-02T16:55:00",
+                "end_date": "2022-11-01T01:30:00",
+                "fillOpacity": 0.5,
+                "fillIncrement": 0.1,
+                "warning":
+                {
+                    "product": null
+                }
+            },
+            "geometry":
+            {
+                "type": "Polygon",
+                "coordinates":
+                [
+                    [
+                        [
+                            -121.4919,
+                            47.2852
+                        ],
+                        [
+                            -121.6972,
+                            47.3524
+                        ],
+                        [
+                            -121.7072,
+                            47.426
+                        ],
+                        [
+                            -121.7154,
+                            47.4774
+                        ],
+                        [
+                            -121.5634,
+                            47.5443
+                        ],
+                        [
+                            -121.5494,
+                            47.5481
+                        ],
+                        [
+                            -121.5388,
+                            47.548
+                        ],
+                        [
+                            -121.5285,
+                            47.5464
+                        ],
+                        [
+                            -121.4436,
+                            47.5263
+                        ],
+                        [
+                            -121.358,
+                            47.5081
+                        ],
+                        [
+                            -121.2594,
+                            47.4479
+                        ],
+                        [
+                            -121.2388,
+                            47.4188
+                        ],
+                        [
+                            -121.2385,
+                            47.3801
+                        ],
+                        [
+                            -121.2426,
+                            47.3501
+                        ],
+                        [
+                            -121.2285,
+                            47.3177
+                        ],
+                        [
+                            -121.202,
+                            47.2703
+                        ],
+                        [
+                            -121.206,
+                            47.2457
+                        ],
+                        [
+                            -121.2272,
+                            47.2171
+                        ],
+                        [
+                            -121.2753,
+                            47.1903
+                        ],
+                        [
+                            -121.4919,
+                            47.2852
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 420,
+            "properties":
+            {
+                "name": "West Slopes North",
+                "center": "Northwest Avalanche Center",
+                "center_link": "https://www.nwac.us/",
+                "timezone": "America/Los_Angeles",
+                "center_id": "NWAC",
+                "state": "WA",
+                "off_season": false,
+                "travel_advice": "Watch for signs of unstable snow such as recent avalanches, cracking in the snow, and audible collapsing. Avoid traveling on or under similar slopes.",
+                "danger": "no rating",
+                "danger_level": -1,
+                "color": "#888888",
+                "stroke": "#104efb",
+                "font_color": "#ffffff",
+                "link": "http://www.nwac.us/avalanche-forecast/#/west-slopes-north",
+                "start_date": "2022-05-02T16:55:00",
+                "end_date": "2022-11-01T01:30:00",
+                "fillOpacity": 0.5,
+                "fillIncrement": 0.1,
+                "warning":
+                {
+                    "product": null
+                }
+            },
+            "geometry":
+            {
+                "type": "Polygon",
+                "coordinates":
+                [
+                    [
+                        [
+                            -121.9972,
+                            48.636
+                        ],
+                        [
+                            -122.0374,
+                            48.7047
+                        ],
+                        [
+                            -121.99,
+                            49.0004
+                        ],
+                        [
+                            -121.0793,
+                            49.0012
+                        ],
+                        [
+                            -121.0333,
+                            48.86
+                        ],
+                        [
+                            -121.0415,
+                            48.8018
+                        ],
+                        [
+                            -121.0367,
+                            48.7704
+                        ],
+                        [
+                            -121.0211,
+                            48.7294
+                        ],
+                        [
+                            -120.9877,
+                            48.7111
+                        ],
+                        [
+                            -120.9766,
+                            48.7039
+                        ],
+                        [
+                            -120.9865,
+                            48.6916
+                        ],
+                        [
+                            -121.0068,
+                            48.6777
+                        ],
+                        [
+                            -121.054,
+                            48.6468
+                        ],
+                        [
+                            -121.0437,
+                            48.5959
+                        ],
+                        [
+                            -121.0127,
+                            48.5413
+                        ],
+                        [
+                            -120.9635,
+                            48.5022
+                        ],
+                        [
+                            -120.9499,
+                            48.482
+                        ],
+                        [
+                            -120.9227,
+                            48.4406
+                        ],
+                        [
+                            -120.928,
+                            48.4247
+                        ],
+                        [
+                            -120.9512,
+                            48.4167
+                        ],
+                        [
+                            -120.9747,
+                            48.4094
+                        ],
+                        [
+                            -121.1318,
+                            48.4434
+                        ],
+                        [
+                            -121.2294,
+                            48.4697
+                        ],
+                        [
+                            -121.2604,
+                            48.5157
+                        ],
+                        [
+                            -121.2799,
+                            48.5303
+                        ],
+                        [
+                            -121.3083,
+                            48.5314
+                        ],
+                        [
+                            -121.3734,
+                            48.5207
+                        ],
+                        [
+                            -121.4525,
+                            48.5201
+                        ],
+                        [
+                            -121.5543,
+                            48.4768
+                        ],
+                        [
+                            -121.7407,
+                            48.5302
+                        ],
+                        [
+                            -121.9045,
+                            48.5435
+                        ],
+                        [
+                            -121.9972,
+                            48.636
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 421,
+            "properties":
+            {
+                "name": "West Slopes Central",
+                "center": "Northwest Avalanche Center",
+                "center_link": "https://www.nwac.us/",
+                "timezone": "America/Los_Angeles",
+                "center_id": "NWAC",
+                "state": "WA",
+                "off_season": false,
+                "travel_advice": "Watch for signs of unstable snow such as recent avalanches, cracking in the snow, and audible collapsing. Avoid traveling on or under similar slopes.",
+                "danger": "no rating",
+                "danger_level": -1,
+                "color": "#888888",
+                "stroke": "#104efb",
+                "font_color": "#ffffff",
+                "link": "http://www.nwac.us/avalanche-forecast/#/west-slopes-central",
+                "start_date": "2022-05-02T16:55:00",
+                "end_date": "2022-11-01T01:30:00",
+                "fillOpacity": 0.5,
+                "fillIncrement": 0.1,
+                "warning":
+                {
+                    "product": null
+                }
+            },
+            "geometry":
+            {
+                "type": "Polygon",
+                "coordinates":
+                [
+                    [
+                        [
+                            -120.87,
+                            48.4134
+                        ],
+                        [
+                            -120.836,
+                            48.3969
+                        ],
+                        [
+                            -120.8172,
+                            48.3865
+                        ],
+                        [
+                            -120.7551,
+                            48.3728
+                        ],
+                        [
+                            -120.9101,
+                            48.2336
+                        ],
+                        [
+                            -120.9333,
+                            48.1182
+                        ],
+                        [
+                            -120.9904,
+                            48.0629
+                        ],
+                        [
+                            -121.119,
+                            48.0351
+                        ],
+                        [
+                            -121.1125,
+                            47.8566
+                        ],
+                        [
+                            -121.2581,
+                            47.8115
+                        ],
+                        [
+                            -121.2999,
+                            47.7783
+                        ],
+                        [
+                            -121.3242,
+                            47.7195
+                        ],
+                        [
+                            -121.2933,
+                            47.6669
+                        ],
+                        [
+                            -121.2625,
+                            47.6361
+                        ],
+                        [
+                            -121.2374,
+                            47.607
+                        ],
+                        [
+                            -121.2082,
+                            47.6004
+                        ],
+                        [
+                            -121.1799,
+                            47.6018
+                        ],
+                        [
+                            -121.1421,
+                            47.6075
+                        ],
+                        [
+                            -121.119,
+                            47.5646
+                        ],
+                        [
+                            -121.1215,
+                            47.533
+                        ],
+                        [
+                            -121.1491,
+                            47.5064
+                        ],
+                        [
+                            -121.1783,
+                            47.5045
+                        ],
+                        [
+                            -121.2595,
+                            47.4479
+                        ],
+                        [
+                            -121.358,
+                            47.5079
+                        ],
+                        [
+                            -121.4435,
+                            47.5266
+                        ],
+                        [
+                            -121.5285,
+                            47.5463
+                        ],
+                        [
+                            -121.5388,
+                            47.548
+                        ],
+                        [
+                            -121.5494,
+                            47.5481
+                        ],
+                        [
+                            -121.5634,
+                            47.5443
+                        ],
+                        [
+                            -121.7154,
+                            47.4774
+                        ],
+                        [
+                            -121.7387,
+                            47.48
+                        ],
+                        [
+                            -121.7568,
+                            47.4885
+                        ],
+                        [
+                            -121.7638,
+                            47.501
+                        ],
+                        [
+                            -121.7635,
+                            47.5133
+                        ],
+                        [
+                            -121.7533,
+                            47.5354
+                        ],
+                        [
+                            -121.6619,
+                            47.7599
+                        ],
+                        [
+                            -121.6424,
+                            47.8434
+                        ],
+                        [
+                            -121.6498,
+                            47.91
+                        ],
+                        [
+                            -121.6944,
+                            47.9726
+                        ],
+                        [
+                            -121.7858,
+                            48.0287
+                        ],
+                        [
+                            -121.8062,
+                            48.0421
+                        ],
+                        [
+                            -121.8229,
+                            48.0545
+                        ],
+                        [
+                            -121.8262,
+                            48.0731
+                        ],
+                        [
+                            -121.8303,
+                            48.3761
+                        ],
+                        [
+                            -121.9058,
+                            48.543
+                        ],
+                        [
+                            -121.7408,
+                            48.5303
+                        ],
+                        [
+                            -121.554,
+                            48.4768
+                        ],
+                        [
+                            -121.4524,
+                            48.5201
+                        ],
+                        [
+                            -121.3736,
+                            48.5202
+                        ],
+                        [
+                            -121.305,
+                            48.5324
+                        ],
+                        [
+                            -121.2814,
+                            48.5294
+                        ],
+                        [
+                            -121.2695,
+                            48.524
+                        ],
+                        [
+                            -121.2268,
+                            48.4681
+                        ],
+                        [
+                            -121.2004,
+                            48.4639
+                        ],
+                        [
+                            -121.1316,
+                            48.4434
+                        ],
+                        [
+                            -120.9743,
+                            48.4095
+                        ],
+                        [
+                            -120.9282,
+                            48.4247
+                        ],
+                        [
+                            -120.9227,
+                            48.4406
+                        ],
+                        [
+                            -120.87,
+                            48.4134
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 422,
+            "properties":
+            {
+                "name": "West Slopes South",
+                "center": "Northwest Avalanche Center",
+                "center_link": "https://www.nwac.us/",
+                "timezone": "America/Los_Angeles",
+                "center_id": "NWAC",
+                "state": "WA",
+                "off_season": false,
+                "travel_advice": "Watch for signs of unstable snow such as recent avalanches, cracking in the snow, and audible collapsing. Avoid traveling on or under similar slopes.",
+                "danger": "no rating",
+                "danger_level": -1,
+                "color": "#888888",
+                "stroke": "#104efb",
+                "font_color": "#ffffff",
+                "link": "http://www.nwac.us/avalanche-forecast/#/west-slopes-south",
+                "start_date": "2022-05-02T16:55:00",
+                "end_date": "2022-11-01T01:30:00",
+                "fillOpacity": 0.5,
+                "fillIncrement": 0.1,
+                "warning":
+                {
+                    "product": null
+                }
+            },
+            "geometry":
+            {
+                "type": "Polygon",
+                "coordinates":
+                [
+                    [
+                        [
+                            -121.9247,
+                            47.0266
+                        ],
+                        [
+                            -121.8498,
+                            47.1177
+                        ],
+                        [
+                            -121.7461,
+                            47.2192
+                        ],
+                        [
+                            -121.6972,
+                            47.3529
+                        ],
+                        [
+                            -121.4916,
+                            47.2852
+                        ],
+                        [
+                            -121.2755,
+                            47.19
+                        ],
+                        [
+                            -121.2978,
+                            47.1424
+                        ],
+                        [
+                            -121.3622,
+                            47.021
+                        ],
+                        [
+                            -121.3811,
+                            46.9901
+                        ],
+                        [
+                            -121.404,
+                            46.9422
+                        ],
+                        [
+                            -121.4366,
+                            46.9167
+                        ],
+                        [
+                            -121.456,
+                            46.8916
+                        ],
+                        [
+                            -121.4587,
+                            46.8419
+                        ],
+                        [
+                            -121.4039,
+                            46.7864
+                        ],
+                        [
+                            -121.3474,
+                            46.7216
+                        ],
+                        [
+                            -121.2902,
+                            46.6343
+                        ],
+                        [
+                            -121.34,
+                            46.5611
+                        ],
+                        [
+                            -121.3373,
+                            46.5368
+                        ],
+                        [
+                            -121.3321,
+                            46.3886
+                        ],
+                        [
+                            -121.4011,
+                            46.2639
+                        ],
+                        [
+                            -121.4202,
+                            46.1756
+                        ],
+                        [
+                            -121.5113,
+                            45.891
+                        ],
+                        [
+                            -121.6325,
+                            45.8601
+                        ],
+                        [
+                            -121.8408,
+                            45.8126
+                        ],
+                        [
+                            -122.0713,
+                            45.7859
+                        ],
+                        [
+                            -122.1637,
+                            45.8153
+                        ],
+                        [
+                            -122.2143,
+                            45.8529
+                        ],
+                        [
+                            -122.3256,
+                            46.2107
+                        ],
+                        [
+                            -122.3135,
+                            46.3371
+                        ],
+                        [
+                            -122.0608,
+                            46.717
+                        ],
+                        [
+                            -121.9247,
+                            47.0266
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 428,
+            "properties":
+            {
+                "name": "East Slopes North",
+                "center": "Northwest Avalanche Center",
+                "center_link": "https://www.nwac.us/",
+                "timezone": "America/Los_Angeles",
+                "center_id": "NWAC",
+                "state": "WA",
+                "off_season": false,
+                "travel_advice": "Watch for signs of unstable snow such as recent avalanches, cracking in the snow, and audible collapsing. Avoid traveling on or under similar slopes.",
+                "danger": "no rating",
+                "danger_level": -1,
+                "color": "#888888",
+                "stroke": "#104efb",
+                "font_color": "#ffffff",
+                "link": "http://www.nwac.us/avalanche-forecast/#/east-slopes-north",
+                "start_date": "2022-05-02T16:55:00",
+                "end_date": "2022-11-01T01:30:00",
+                "fillOpacity": 0.5,
+                "fillIncrement": 0.1,
+                "warning":
+                {
+                    "product": null
+                }
+            },
+            "geometry":
+            {
+                "type": "Polygon",
+                "coordinates":
+                [
+                    [
+                        [
+                            -120.9228,
+                            48.4406
+                        ],
+                        [
+                            -120.9635,
+                            48.5021
+                        ],
+                        [
+                            -121.0126,
+                            48.5416
+                        ],
+                        [
+                            -121.0438,
+                            48.5958
+                        ],
+                        [
+                            -121.0539,
+                            48.6467
+                        ],
+                        [
+                            -121.0215,
+                            48.6679
+                        ],
+                        [
+                            -120.987,
+                            48.6913
+                        ],
+                        [
+                            -120.9765,
+                            48.7038
+                        ],
+                        [
+                            -120.9872,
+                            48.7105
+                        ],
+                        [
+                            -121.0216,
+                            48.7296
+                        ],
+                        [
+                            -121.029,
+                            48.75
+                        ],
+                        [
+                            -121.0368,
+                            48.7703
+                        ],
+                        [
+                            -121.0413,
+                            48.8023
+                        ],
+                        [
+                            -121.0337,
+                            48.8601
+                        ],
+                        [
+                            -121.0793,
+                            49.0012
+                        ],
+                        [
+                            -120.0887,
+                            48.9991
+                        ],
+                        [
+                            -120.0592,
+                            48.9152
+                        ],
+                        [
+                            -120.009,
+                            48.8237
+                        ],
+                        [
+                            -119.887,
+                            48.71
+                        ],
+                        [
+                            -119.8269,
+                            48.6439
+                        ],
+                        [
+                            -119.8294,
+                            48.5155
+                        ],
+                        [
+                            -119.8402,
+                            48.4535
+                        ],
+                        [
+                            -119.8509,
+                            48.4112
+                        ],
+                        [
+                            -119.872,
+                            48.3754
+                        ],
+                        [
+                            -119.9373,
+                            48.3501
+                        ],
+                        [
+                            -120.0224,
+                            48.3402
+                        ],
+                        [
+                            -120.072,
+                            48.307
+                        ],
+                        [
+                            -120.1123,
+                            48.2539
+                        ],
+                        [
+                            -120.1203,
+                            48.232
+                        ],
+                        [
+                            -120.1194,
+                            48.2064
+                        ],
+                        [
+                            -120.0455,
+                            48.1414
+                        ],
+                        [
+                            -120.0248,
+                            48.1252
+                        ],
+                        [
+                            -120.0141,
+                            48.1025
+                        ],
+                        [
+                            -120.0074,
+                            48.0801
+                        ],
+                        [
+                            -119.9473,
+                            48.0393
+                        ],
+                        [
+                            -119.9374,
+                            48.0235
+                        ],
+                        [
+                            -119.9485,
+                            47.9608
+                        ],
+                        [
+                            -119.9926,
+                            47.8978
+                        ],
+                        [
+                            -120.0217,
+                            47.8603
+                        ],
+                        [
+                            -120.0858,
+                            47.8523
+                        ],
+                        [
+                            -120.1481,
+                            47.8631
+                        ],
+                        [
+                            -120.202,
+                            47.8888
+                        ],
+                        [
+                            -120.2039,
+                            47.9232
+                        ],
+                        [
+                            -120.1932,
+                            47.9409
+                        ],
+                        [
+                            -120.2055,
+                            47.9818
+                        ],
+                        [
+                            -120.3368,
+                            48.0253
+                        ],
+                        [
+                            -120.3843,
+                            48.0343
+                        ],
+                        [
+                            -120.4463,
+                            48.0556
+                        ],
+                        [
+                            -120.4706,
+                            48.0711
+                        ],
+                        [
+                            -120.5037,
+                            48.1103
+                        ],
+                        [
+                            -120.497,
+                            48.1333
+                        ],
+                        [
+                            -120.5191,
+                            48.158
+                        ],
+                        [
+                            -120.5377,
+                            48.1802
+                        ],
+                        [
+                            -120.5657,
+                            48.1993
+                        ],
+                        [
+                            -120.5964,
+                            48.2106
+                        ],
+                        [
+                            -120.6133,
+                            48.225
+                        ],
+                        [
+                            -120.6281,
+                            48.2598
+                        ],
+                        [
+                            -120.6565,
+                            48.3004
+                        ],
+                        [
+                            -120.6852,
+                            48.3367
+                        ],
+                        [
+                            -120.7552,
+                            48.3728
+                        ],
+                        [
+                            -120.8175,
+                            48.3863
+                        ],
+                        [
+                            -120.9228,
+                            48.4406
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 429,
+            "properties":
+            {
+                "name": "East Slopes Central",
+                "center": "Northwest Avalanche Center",
+                "center_link": "https://www.nwac.us/",
+                "timezone": "America/Los_Angeles",
+                "center_id": "NWAC",
+                "state": "WA",
+                "off_season": false,
+                "travel_advice": "Watch for signs of unstable snow such as recent avalanches, cracking in the snow, and audible collapsing. Avoid traveling on or under similar slopes.",
+                "danger": "no rating",
+                "danger_level": -1,
+                "color": "#888888",
+                "stroke": "#104efb",
+                "font_color": "#ffffff",
+                "link": "http://www.nwac.us/avalanche-forecast/#/east-slopes-central",
+                "start_date": "2022-05-02T16:55:00",
+                "end_date": "2022-11-01T01:30:00",
+                "fillOpacity": 0.5,
+                "fillIncrement": 0.1,
+                "warning":
+                {
+                    "product": null
+                }
+            },
+            "geometry":
+            {
+                "type": "Polygon",
+                "coordinates":
+                [
+                    [
+                        [
+                            -121.0176,
+                            47.6265
+                        ],
+                        [
+                            -120.9657,
+                            47.6367
+                        ],
+                        [
+                            -120.9006,
+                            47.6513
+                        ],
+                        [
+                            -120.8661,
+                            47.6987
+                        ],
+                        [
+                            -120.8679,
+                            47.7274
+                        ],
+                        [
+                            -120.894,
+                            47.8098
+                        ],
+                        [
+                            -120.9166,
+                            47.8361
+                        ],
+                        [
+                            -121.0289,
+                            47.8785
+                        ],
+                        [
+                            -121.1123,
+                            47.8566
+                        ],
+                        [
+                            -121.1189,
+                            48.0364
+                        ],
+                        [
+                            -120.9893,
+                            48.063
+                        ],
+                        [
+                            -120.9332,
+                            48.1178
+                        ],
+                        [
+                            -120.9098,
+                            48.2338
+                        ],
+                        [
+                            -120.7551,
+                            48.3728
+                        ],
+                        [
+                            -120.6852,
+                            48.3367
+                        ],
+                        [
+                            -120.6793,
+                            48.3289
+                        ],
+                        [
+                            -120.6707,
+                            48.3186
+                        ],
+                        [
+                            -120.6566,
+                            48.3004
+                        ],
+                        [
+                            -120.6283,
+                            48.2599
+                        ],
+                        [
+                            -120.6132,
+                            48.2249
+                        ],
+                        [
+                            -120.5964,
+                            48.2107
+                        ],
+                        [
+                            -120.5802,
+                            48.2045
+                        ],
+                        [
+                            -120.5659,
+                            48.1994
+                        ],
+                        [
+                            -120.54,
+                            48.182
+                        ],
+                        [
+                            -120.4972,
+                            48.1333
+                        ],
+                        [
+                            -120.5036,
+                            48.1103
+                        ],
+                        [
+                            -120.4706,
+                            48.0711
+                        ],
+                        [
+                            -120.4461,
+                            48.0556
+                        ],
+                        [
+                            -120.3842,
+                            48.0342
+                        ],
+                        [
+                            -120.3367,
+                            48.0253
+                        ],
+                        [
+                            -120.2055,
+                            47.9817
+                        ],
+                        [
+                            -120.193,
+                            47.9409
+                        ],
+                        [
+                            -120.2038,
+                            47.9232
+                        ],
+                        [
+                            -120.2021,
+                            47.8889
+                        ],
+                        [
+                            -120.1482,
+                            47.8631
+                        ],
+                        [
+                            -120.0859,
+                            47.8522
+                        ],
+                        [
+                            -120.1289,
+                            47.8181
+                        ],
+                        [
+                            -120.1375,
+                            47.7905
+                        ],
+                        [
+                            -120.1454,
+                            47.7801
+                        ],
+                        [
+                            -120.1828,
+                            47.7684
+                        ],
+                        [
+                            -120.2194,
+                            47.7514
+                        ],
+                        [
+                            -120.2362,
+                            47.7319
+                        ],
+                        [
+                            -120.2279,
+                            47.6967
+                        ],
+                        [
+                            -120.2745,
+                            47.5792
+                        ],
+                        [
+                            -120.3322,
+                            47.5101
+                        ],
+                        [
+                            -120.3563,
+                            47.4707
+                        ],
+                        [
+                            -120.3462,
+                            47.4289
+                        ],
+                        [
+                            -120.3206,
+                            47.3959
+                        ],
+                        [
+                            -120.269,
+                            47.366
+                        ],
+                        [
+                            -120.2016,
+                            47.2909
+                        ],
+                        [
+                            -120.183,
+                            47.2473
+                        ],
+                        [
+                            -120.1954,
+                            47.1506
+                        ],
+                        [
+                            -120.2449,
+                            47.09
+                        ],
+                        [
+                            -120.3692,
+                            47.0931
+                        ],
+                        [
+                            -120.4774,
+                            47.1256
+                        ],
+                        [
+                            -120.6195,
+                            47.1624
+                        ],
+                        [
+                            -120.6913,
+                            47.1625
+                        ],
+                        [
+                            -120.7364,
+                            47.125
+                        ],
+                        [
+                            -120.7441,
+                            47.0753
+                        ],
+                        [
+                            -120.7386,
+                            46.9962
+                        ],
+                        [
+                            -120.9856,
+                            47.0792
+                        ],
+                        [
+                            -121.2755,
+                            47.1903
+                        ],
+                        [
+                            -121.2269,
+                            47.217
+                        ],
+                        [
+                            -121.2059,
+                            47.2458
+                        ],
+                        [
+                            -121.2016,
+                            47.2703
+                        ],
+                        [
+                            -121.2287,
+                            47.3174
+                        ],
+                        [
+                            -121.2425,
+                            47.3501
+                        ],
+                        [
+                            -121.2384,
+                            47.3803
+                        ],
+                        [
+                            -121.2387,
+                            47.4189
+                        ],
+                        [
+                            -121.2588,
+                            47.4478
+                        ],
+                        [
+                            -121.1784,
+                            47.5045
+                        ],
+                        [
+                            -121.1491,
+                            47.5064
+                        ],
+                        [
+                            -121.122,
+                            47.5332
+                        ],
+                        [
+                            -121.119,
+                            47.5647
+                        ],
+                        [
+                            -121.1421,
+                            47.6075
+                        ],
+                        [
+                            -121.0176,
+                            47.6265
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 430,
+            "properties":
+            {
+                "name": "East Slopes South",
+                "center": "Northwest Avalanche Center",
+                "center_link": "https://www.nwac.us/",
+                "timezone": "America/Los_Angeles",
+                "center_id": "NWAC",
+                "state": "WA",
+                "off_season": false,
+                "travel_advice": "Watch for signs of unstable snow such as recent avalanches, cracking in the snow, and audible collapsing. Avoid traveling on or under similar slopes.",
+                "danger": "no rating",
+                "danger_level": -1,
+                "color": "#888888",
+                "stroke": "#104efb",
+                "font_color": "#ffffff",
+                "link": "http://www.nwac.us/avalanche-forecast/#/east-slopes-south",
+                "start_date": "2022-05-02T16:55:00",
+                "end_date": "2022-11-01T01:30:00",
+                "fillOpacity": 0.5,
+                "fillIncrement": 0.1,
+                "warning":
+                {
+                    "product": null
+                }
+            },
+            "geometry":
+            {
+                "type": "Polygon",
+                "coordinates":
+                [
+                    [
+                        [
+                            -121.2752,
+                            47.1902
+                        ],
+                        [
+                            -120.9853,
+                            47.079
+                        ],
+                        [
+                            -120.7385,
+                            46.9962
+                        ],
+                        [
+                            -120.7286,
+                            46.7882
+                        ],
+                        [
+                            -120.7285,
+                            46.7724
+                        ],
+                        [
+                            -120.7361,
+                            46.7588
+                        ],
+                        [
+                            -120.7936,
+                            46.741
+                        ],
+                        [
+                            -120.8262,
+                            46.7186
+                        ],
+                        [
+                            -120.8545,
+                            46.6792
+                        ],
+                        [
+                            -120.8484,
+                            46.5267
+                        ],
+                        [
+                            -120.9109,
+                            46.4125
+                        ],
+                        [
+                            -120.9833,
+                            46.1317
+                        ],
+                        [
+                            -121.1595,
+                            46.0161
+                        ],
+                        [
+                            -121.5113,
+                            45.8909
+                        ],
+                        [
+                            -121.4199,
+                            46.1756
+                        ],
+                        [
+                            -121.4012,
+                            46.2637
+                        ],
+                        [
+                            -121.3836,
+                            46.2947
+                        ],
+                        [
+                            -121.3318,
+                            46.3882
+                        ],
+                        [
+                            -121.3398,
+                            46.5612
+                        ],
+                        [
+                            -121.2895,
+                            46.6344
+                        ],
+                        [
+                            -121.3471,
+                            46.7218
+                        ],
+                        [
+                            -121.4041,
+                            46.7863
+                        ],
+                        [
+                            -121.4584,
+                            46.8417
+                        ],
+                        [
+                            -121.456,
+                            46.8917
+                        ],
+                        [
+                            -121.4368,
+                            46.9169
+                        ],
+                        [
+                            -121.4054,
+                            46.9414
+                        ],
+                        [
+                            -121.2975,
+                            47.1426
+                        ],
+                        [
+                            -121.2752,
+                            47.1902
+                        ]
+                    ]
+                ]
+            }
+        }
+    ],
+    "start_time": null,
+    "end_time": null
+}
