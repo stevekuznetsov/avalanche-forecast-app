@@ -9,107 +9,434 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import MapView, {LatLng, Polygon, Region} from 'react-native-maps';
 
-const Section: React.FC<{
-  children: React.ReactNode;
-  title: string;
-}> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
+  const region: Region = {
+    latitude: 46.25,
+    latitudeDelta: 4.0,
+    longitude: -121.769123046875,
+    longitudeDelta: 4.3,
+  };
+
+  const boundaries: LatLng[][] = [
+    [
+      {longitude: -123.4379, latitude: 48.0261},
+      {longitude: -123.2369, latitude: 47.9749},
+      {longitude: -123.124, latitude: 47.9376},
+      {longitude: -123.0239, latitude: 47.899},
+      {longitude: -122.9942, latitude: 47.8497},
+      {longitude: -122.9858, latitude: 47.8068},
+      {longitude: -122.992, latitude: 47.761},
+      {longitude: -123.0255, latitude: 47.7084},
+      {longitude: -123.0623, latitude: 47.6492},
+      {longitude: -123.224, latitude: 47.4974},
+      {longitude: -123.2937, latitude: 47.4914},
+      {longitude: -123.4628, latitude: 47.5335},
+      {longitude: -123.4971, latitude: 47.5454},
+      {longitude: -123.5922, latitude: 47.5885},
+      {longitude: -123.7994, latitude: 47.7034},
+      {longitude: -123.8318, latitude: 47.7439},
+      {longitude: -123.895, latitude: 47.8245},
+      {longitude: -123.9091, latitude: 47.8898},
+      {longitude: -123.9016, latitude: 47.9255},
+      {longitude: -123.7982, latitude: 48.0414},
+      {longitude: -123.7736, latitude: 48.0596},
+      {longitude: -123.7465, latitude: 48.0658},
+      {longitude: -123.6392, latitude: 48.0579},
+      {longitude: -123.5523, latitude: 48.0484},
+      {longitude: -123.4379, latitude: 48.0261},
+    ],
+    [
+      {longitude: -121.9298, latitude: 45.2792},
+      {longitude: -121.952, latitude: 45.326},
+      {longitude: -121.9315, latitude: 45.3659},
+      {longitude: -121.8805, latitude: 45.4445},
+      {longitude: -121.8473, latitude: 45.4646},
+      {longitude: -121.8032, latitude: 45.4794},
+      {longitude: -121.7216, latitude: 45.4921},
+      {longitude: -121.6435, latitude: 45.4839},
+      {longitude: -121.5219, latitude: 45.4578},
+      {longitude: -121.431, latitude: 45.3475},
+      {longitude: -121.477, latitude: 45.2279},
+      {longitude: -121.5565, latitude: 45.2055},
+      {longitude: -121.623, latitude: 45.1939},
+      {longitude: -121.7036, latitude: 45.1916},
+      {longitude: -121.8579, latitude: 45.2292},
+      {longitude: -121.92, latitude: 45.2646},
+      {longitude: -121.9298, latitude: 45.2792},
+    ],
+    [
+      {longitude: -120.9653, latitude: 47.6367},
+      {longitude: -121.0176, latitude: 47.6265},
+      {longitude: -121.1799, latitude: 47.6018},
+      {longitude: -121.208, latitude: 47.6004},
+      {longitude: -121.2373, latitude: 47.607},
+      {longitude: -121.2622, latitude: 47.6362},
+      {longitude: -121.2929, latitude: 47.6666},
+      {longitude: -121.3245, latitude: 47.7189},
+      {longitude: -121.3, latitude: 47.7786},
+      {longitude: -121.2581, latitude: 47.8116},
+      {longitude: -121.1126, latitude: 47.8567},
+      {longitude: -121.0288, latitude: 47.8785},
+      {longitude: -120.9162, latitude: 47.8359},
+      {longitude: -120.8941, latitude: 47.8101},
+      {longitude: -120.8678, latitude: 47.7272},
+      {longitude: -120.8661, latitude: 47.6986},
+      {longitude: -120.9006, latitude: 47.6512},
+      {longitude: -120.9653, latitude: 47.6367},
+    ],
+    [
+      {longitude: -121.4919, latitude: 47.2852},
+      {longitude: -121.6972, latitude: 47.3524},
+      {longitude: -121.7072, latitude: 47.426},
+      {longitude: -121.7154, latitude: 47.4774},
+      {longitude: -121.5634, latitude: 47.5443},
+      {longitude: -121.5494, latitude: 47.5481},
+      {longitude: -121.5388, latitude: 47.548},
+      {longitude: -121.5285, latitude: 47.5464},
+      {longitude: -121.4436, latitude: 47.5263},
+      {longitude: -121.358, latitude: 47.5081},
+      {longitude: -121.2594, latitude: 47.4479},
+      {longitude: -121.2388, latitude: 47.4188},
+      {longitude: -121.2385, latitude: 47.3801},
+      {longitude: -121.2426, latitude: 47.3501},
+      {longitude: -121.2285, latitude: 47.3177},
+      {longitude: -121.202, latitude: 47.2703},
+      {longitude: -121.206, latitude: 47.2457},
+      {longitude: -121.2272, latitude: 47.2171},
+      {longitude: -121.2753, latitude: 47.1903},
+      {longitude: -121.4919, latitude: 47.2852},
+    ],
+    [
+      {longitude: -121.9972, latitude: 48.636},
+      {longitude: -122.0374, latitude: 48.7047},
+      {longitude: -121.99, latitude: 49.0004},
+      {longitude: -121.0793, latitude: 49.0012},
+      {longitude: -121.0333, latitude: 48.86},
+      {longitude: -121.0415, latitude: 48.8018},
+      {longitude: -121.0367, latitude: 48.7704},
+      {longitude: -121.0211, latitude: 48.7294},
+      {longitude: -120.9877, latitude: 48.7111},
+      {longitude: -120.9766, latitude: 48.7039},
+      {longitude: -120.9865, latitude: 48.6916},
+      {longitude: -121.0068, latitude: 48.6777},
+      {longitude: -121.054, latitude: 48.6468},
+      {longitude: -121.0437, latitude: 48.5959},
+      {longitude: -121.0127, latitude: 48.5413},
+      {longitude: -120.9635, latitude: 48.5022},
+      {longitude: -120.9499, latitude: 48.482},
+      {longitude: -120.9227, latitude: 48.4406},
+      {longitude: -120.928, latitude: 48.4247},
+      {longitude: -120.9512, latitude: 48.4167},
+      {longitude: -120.9747, latitude: 48.4094},
+      {longitude: -121.1318, latitude: 48.4434},
+      {longitude: -121.2294, latitude: 48.4697},
+      {longitude: -121.2604, latitude: 48.5157},
+      {longitude: -121.2799, latitude: 48.5303},
+      {longitude: -121.3083, latitude: 48.5314},
+      {longitude: -121.3734, latitude: 48.5207},
+      {longitude: -121.4525, latitude: 48.5201},
+      {longitude: -121.5543, latitude: 48.4768},
+      {longitude: -121.7407, latitude: 48.5302},
+      {longitude: -121.9045, latitude: 48.5435},
+      {longitude: -121.9972, latitude: 48.636},
+    ],
+    [
+      {longitude: -120.87, latitude: 48.4134},
+      {longitude: -120.836, latitude: 48.3969},
+      {longitude: -120.8172, latitude: 48.3865},
+      {longitude: -120.7551, latitude: 48.3728},
+      {longitude: -120.9101, latitude: 48.2336},
+      {longitude: -120.9333, latitude: 48.1182},
+      {longitude: -120.9904, latitude: 48.0629},
+      {longitude: -121.119, latitude: 48.0351},
+      {longitude: -121.1125, latitude: 47.8566},
+      {longitude: -121.2581, latitude: 47.8115},
+      {longitude: -121.2999, latitude: 47.7783},
+      {longitude: -121.3242, latitude: 47.7195},
+      {longitude: -121.2933, latitude: 47.6669},
+      {longitude: -121.2625, latitude: 47.6361},
+      {longitude: -121.2374, latitude: 47.607},
+      {longitude: -121.2082, latitude: 47.6004},
+      {longitude: -121.1799, latitude: 47.6018},
+      {longitude: -121.1421, latitude: 47.6075},
+      {longitude: -121.119, latitude: 47.5646},
+      {longitude: -121.1215, latitude: 47.533},
+      {longitude: -121.1491, latitude: 47.5064},
+      {longitude: -121.1783, latitude: 47.5045},
+      {longitude: -121.2595, latitude: 47.4479},
+      {longitude: -121.358, latitude: 47.5079},
+      {longitude: -121.4435, latitude: 47.5266},
+      {longitude: -121.5285, latitude: 47.5463},
+      {longitude: -121.5388, latitude: 47.548},
+      {longitude: -121.5494, latitude: 47.5481},
+      {longitude: -121.5634, latitude: 47.5443},
+      {longitude: -121.7154, latitude: 47.4774},
+      {longitude: -121.7387, latitude: 47.48},
+      {longitude: -121.7568, latitude: 47.4885},
+      {longitude: -121.7638, latitude: 47.501},
+      {longitude: -121.7635, latitude: 47.5133},
+      {longitude: -121.7533, latitude: 47.5354},
+      {longitude: -121.6619, latitude: 47.7599},
+      {longitude: -121.6424, latitude: 47.8434},
+      {longitude: -121.6498, latitude: 47.91},
+      {longitude: -121.6944, latitude: 47.9726},
+      {longitude: -121.7858, latitude: 48.0287},
+      {longitude: -121.8062, latitude: 48.0421},
+      {longitude: -121.8229, latitude: 48.0545},
+      {longitude: -121.8262, latitude: 48.0731},
+      {longitude: -121.8303, latitude: 48.3761},
+      {longitude: -121.9058, latitude: 48.543},
+      {longitude: -121.7408, latitude: 48.5303},
+      {longitude: -121.554, latitude: 48.4768},
+      {longitude: -121.4524, latitude: 48.5201},
+      {longitude: -121.3736, latitude: 48.5202},
+      {longitude: -121.305, latitude: 48.5324},
+      {longitude: -121.2814, latitude: 48.5294},
+      {longitude: -121.2695, latitude: 48.524},
+      {longitude: -121.2268, latitude: 48.4681},
+      {longitude: -121.2004, latitude: 48.4639},
+      {longitude: -121.1316, latitude: 48.4434},
+      {longitude: -120.9743, latitude: 48.4095},
+      {longitude: -120.9282, latitude: 48.4247},
+      {longitude: -120.9227, latitude: 48.4406},
+      {longitude: -120.87, latitude: 48.4134},
+    ],
+    [
+      {longitude: -121.9247, latitude: 47.0266},
+      {longitude: -121.8498, latitude: 47.1177},
+      {longitude: -121.7461, latitude: 47.2192},
+      {longitude: -121.6972, latitude: 47.3529},
+      {longitude: -121.4916, latitude: 47.2852},
+      {longitude: -121.2755, latitude: 47.19},
+      {longitude: -121.2978, latitude: 47.1424},
+      {longitude: -121.3622, latitude: 47.021},
+      {longitude: -121.3811, latitude: 46.9901},
+      {longitude: -121.404, latitude: 46.9422},
+      {longitude: -121.4366, latitude: 46.9167},
+      {longitude: -121.456, latitude: 46.8916},
+      {longitude: -121.4587, latitude: 46.8419},
+      {longitude: -121.4039, latitude: 46.7864},
+      {longitude: -121.3474, latitude: 46.7216},
+      {longitude: -121.2902, latitude: 46.6343},
+      {longitude: -121.34, latitude: 46.5611},
+      {longitude: -121.3373, latitude: 46.5368},
+      {longitude: -121.3321, latitude: 46.3886},
+      {longitude: -121.4011, latitude: 46.2639},
+      {longitude: -121.4202, latitude: 46.1756},
+      {longitude: -121.5113, latitude: 45.891},
+      {longitude: -121.6325, latitude: 45.8601},
+      {longitude: -121.8408, latitude: 45.8126},
+      {longitude: -122.0713, latitude: 45.7859},
+      {longitude: -122.1637, latitude: 45.8153},
+      {longitude: -122.2143, latitude: 45.8529},
+      {longitude: -122.3256, latitude: 46.2107},
+      {longitude: -122.3135, latitude: 46.3371},
+      {longitude: -122.0608, latitude: 46.717},
+      {longitude: -121.9247, latitude: 47.0266},
+    ],
+    [
+      {longitude: -120.9228, latitude: 48.4406},
+      {longitude: -120.9635, latitude: 48.5021},
+      {longitude: -121.0126, latitude: 48.5416},
+      {longitude: -121.0438, latitude: 48.5958},
+      {longitude: -121.0539, latitude: 48.6467},
+      {longitude: -121.0215, latitude: 48.6679},
+      {longitude: -120.987, latitude: 48.6913},
+      {longitude: -120.9765, latitude: 48.7038},
+      {longitude: -120.9872, latitude: 48.7105},
+      {longitude: -121.0216, latitude: 48.7296},
+      {longitude: -121.029, latitude: 48.75},
+      {longitude: -121.0368, latitude: 48.7703},
+      {longitude: -121.0413, latitude: 48.8023},
+      {longitude: -121.0337, latitude: 48.8601},
+      {longitude: -121.0793, latitude: 49.0012},
+      {longitude: -120.0887, latitude: 48.9991},
+      {longitude: -120.0592, latitude: 48.9152},
+      {longitude: -120.009, latitude: 48.8237},
+      {longitude: -119.887, latitude: 48.71},
+      {longitude: -119.8269, latitude: 48.6439},
+      {longitude: -119.8294, latitude: 48.5155},
+      {longitude: -119.8402, latitude: 48.4535},
+      {longitude: -119.8509, latitude: 48.4112},
+      {longitude: -119.872, latitude: 48.3754},
+      {longitude: -119.9373, latitude: 48.3501},
+      {longitude: -120.0224, latitude: 48.3402},
+      {longitude: -120.072, latitude: 48.307},
+      {longitude: -120.1123, latitude: 48.2539},
+      {longitude: -120.1203, latitude: 48.232},
+      {longitude: -120.1194, latitude: 48.2064},
+      {longitude: -120.0455, latitude: 48.1414},
+      {longitude: -120.0248, latitude: 48.1252},
+      {longitude: -120.0141, latitude: 48.1025},
+      {longitude: -120.0074, latitude: 48.0801},
+      {longitude: -119.9473, latitude: 48.0393},
+      {longitude: -119.9374, latitude: 48.0235},
+      {longitude: -119.9485, latitude: 47.9608},
+      {longitude: -119.9926, latitude: 47.8978},
+      {longitude: -120.0217, latitude: 47.8603},
+      {longitude: -120.0858, latitude: 47.8523},
+      {longitude: -120.1481, latitude: 47.8631},
+      {longitude: -120.202, latitude: 47.8888},
+      {longitude: -120.2039, latitude: 47.9232},
+      {longitude: -120.1932, latitude: 47.9409},
+      {longitude: -120.2055, latitude: 47.9818},
+      {longitude: -120.3368, latitude: 48.0253},
+      {longitude: -120.3843, latitude: 48.0343},
+      {longitude: -120.4463, latitude: 48.0556},
+      {longitude: -120.4706, latitude: 48.0711},
+      {longitude: -120.5037, latitude: 48.1103},
+      {longitude: -120.497, latitude: 48.1333},
+      {longitude: -120.5191, latitude: 48.158},
+      {longitude: -120.5377, latitude: 48.1802},
+      {longitude: -120.5657, latitude: 48.1993},
+      {longitude: -120.5964, latitude: 48.2106},
+      {longitude: -120.6133, latitude: 48.225},
+      {longitude: -120.6281, latitude: 48.2598},
+      {longitude: -120.6565, latitude: 48.3004},
+      {longitude: -120.6852, latitude: 48.3367},
+      {longitude: -120.7552, latitude: 48.3728},
+      {longitude: -120.8175, latitude: 48.3863},
+      {longitude: -120.9228, latitude: 48.4406},
+    ],
+    [
+      {longitude: -121.0176, latitude: 47.6265},
+      {longitude: -120.9657, latitude: 47.6367},
+      {longitude: -120.9006, latitude: 47.6513},
+      {longitude: -120.8661, latitude: 47.6987},
+      {longitude: -120.8679, latitude: 47.7274},
+      {longitude: -120.894, latitude: 47.8098},
+      {longitude: -120.9166, latitude: 47.8361},
+      {longitude: -121.0289, latitude: 47.8785},
+      {longitude: -121.1123, latitude: 47.8566},
+      {longitude: -121.1189, latitude: 48.0364},
+      {longitude: -120.9893, latitude: 48.063},
+      {longitude: -120.9332, latitude: 48.1178},
+      {longitude: -120.9098, latitude: 48.2338},
+      {longitude: -120.7551, latitude: 48.3728},
+      {longitude: -120.6852, latitude: 48.3367},
+      {longitude: -120.6793, latitude: 48.3289},
+      {longitude: -120.6707, latitude: 48.3186},
+      {longitude: -120.6566, latitude: 48.3004},
+      {longitude: -120.6283, latitude: 48.2599},
+      {longitude: -120.6132, latitude: 48.2249},
+      {longitude: -120.5964, latitude: 48.2107},
+      {longitude: -120.5802, latitude: 48.2045},
+      {longitude: -120.5659, latitude: 48.1994},
+      {longitude: -120.54, latitude: 48.182},
+      {longitude: -120.4972, latitude: 48.1333},
+      {longitude: -120.5036, latitude: 48.1103},
+      {longitude: -120.4706, latitude: 48.0711},
+      {longitude: -120.4461, latitude: 48.0556},
+      {longitude: -120.3842, latitude: 48.0342},
+      {longitude: -120.3367, latitude: 48.0253},
+      {longitude: -120.2055, latitude: 47.9817},
+      {longitude: -120.193, latitude: 47.9409},
+      {longitude: -120.2038, latitude: 47.9232},
+      {longitude: -120.2021, latitude: 47.8889},
+      {longitude: -120.1482, latitude: 47.8631},
+      {longitude: -120.0859, latitude: 47.8522},
+      {longitude: -120.1289, latitude: 47.8181},
+      {longitude: -120.1375, latitude: 47.7905},
+      {longitude: -120.1454, latitude: 47.7801},
+      {longitude: -120.1828, latitude: 47.7684},
+      {longitude: -120.2194, latitude: 47.7514},
+      {longitude: -120.2362, latitude: 47.7319},
+      {longitude: -120.2279, latitude: 47.6967},
+      {longitude: -120.2745, latitude: 47.5792},
+      {longitude: -120.3322, latitude: 47.5101},
+      {longitude: -120.3563, latitude: 47.4707},
+      {longitude: -120.3462, latitude: 47.4289},
+      {longitude: -120.3206, latitude: 47.3959},
+      {longitude: -120.269, latitude: 47.366},
+      {longitude: -120.2016, latitude: 47.2909},
+      {longitude: -120.183, latitude: 47.2473},
+      {longitude: -120.1954, latitude: 47.1506},
+      {longitude: -120.2449, latitude: 47.09},
+      {longitude: -120.3692, latitude: 47.0931},
+      {longitude: -120.4774, latitude: 47.1256},
+      {longitude: -120.6195, latitude: 47.1624},
+      {longitude: -120.6913, latitude: 47.1625},
+      {longitude: -120.7364, latitude: 47.125},
+      {longitude: -120.7441, latitude: 47.0753},
+      {longitude: -120.7386, latitude: 46.9962},
+      {longitude: -120.9856, latitude: 47.0792},
+      {longitude: -121.2755, latitude: 47.1903},
+      {longitude: -121.2269, latitude: 47.217},
+      {longitude: -121.2059, latitude: 47.2458},
+      {longitude: -121.2016, latitude: 47.2703},
+      {longitude: -121.2287, latitude: 47.3174},
+      {longitude: -121.2425, latitude: 47.3501},
+      {longitude: -121.2384, latitude: 47.3803},
+      {longitude: -121.2387, latitude: 47.4189},
+      {longitude: -121.2588, latitude: 47.4478},
+      {longitude: -121.1784, latitude: 47.5045},
+      {longitude: -121.1491, latitude: 47.5064},
+      {longitude: -121.122, latitude: 47.5332},
+      {longitude: -121.119, latitude: 47.5647},
+      {longitude: -121.1421, latitude: 47.6075},
+      {longitude: -121.0176, latitude: 47.6265},
+    ],
+    [
+      {longitude: -121.2752, latitude: 47.19},
+      {longitude: -120.9853, latitude: 47.079},
+      {longitude: -120.7385, latitude: 46.9962},
+      {longitude: -120.7286, latitude: 46.7882},
+      {longitude: -120.7285, latitude: 46.7724},
+      {longitude: -120.7361, latitude: 46.7588},
+      {longitude: -120.7936, latitude: 46.741},
+      {longitude: -120.8262, latitude: 46.7186},
+      {longitude: -120.8545, latitude: 46.6792},
+      {longitude: -120.8484, latitude: 46.5267},
+      {longitude: -120.9109, latitude: 46.4125},
+      {longitude: -120.9833, latitude: 46.1317},
+      {longitude: -121.1595, latitude: 46.0161},
+      {longitude: -121.5113, latitude: 45.8909},
+      {longitude: -121.4199, latitude: 46.1756},
+      {longitude: -121.4012, latitude: 46.2637},
+      {longitude: -121.3836, latitude: 46.2947},
+      {longitude: -121.3318, latitude: 46.3882},
+      {longitude: -121.3398, latitude: 46.5612},
+      {longitude: -121.2895, latitude: 46.6344},
+      {longitude: -121.3471, latitude: 46.7218},
+      {longitude: -121.4041, latitude: 46.7863},
+      {longitude: -121.4584, latitude: 46.8417},
+      {longitude: -121.456, latitude: 46.8917},
+      {longitude: -121.4368, latitude: 46.9169},
+      {longitude: -121.4054, latitude: 46.9414},
+      {longitude: -121.2975, latitude: 47.1426},
+      {longitude: -121.2752, latitude: 47.1902},
+    ],
+  ];
+
+  const [isReady, setIsReady] = React.useState<boolean>(false);
+
+  function setReady() {
+    setIsReady(true);
+  }
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <MapView style={styles.map} initialRegion={region} onLayout={setReady}>
+        {isReady &&
+          boundaries.map(coordinates => <Polygon coordinates={coordinates} />)}
+      </MapView>
     </View>
   );
 };
 
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    flex: 1, //the container will fill the whole screen.
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  map: {
+    ...StyleSheet.absoluteFillObject,
   },
 });
 
