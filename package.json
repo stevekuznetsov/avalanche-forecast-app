@@ -1,5 +1,5 @@
 {
-  "name": "AvalancheForecast",
+  "name": "avalancheforecast",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,8 +10,10 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native/normalize-color": "^2.0.0",
     "react": "18.0.0",
-    "react-native": "0.69.0"
+    "react-native": "0.69.0",
+    "react-native-maps": "^0.31.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
