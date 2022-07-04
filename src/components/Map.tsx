@@ -55,19 +55,27 @@ const boundingRegion = (
 ): Region => {
   // for the US, the "top left" corner of a map will have the largest latitude and smallest longitude
   let topLeft: LatLng = {
-    longitude: defaultRegion.longitude,
-    latitude: defaultRegion.latitude,
+    longitude: 0,
+    latitude: 0,
   };
   // similarly, the "bottom right" will have the smallest latitude and largest longitude
   let bottomRight: LatLng = {
-    longitude: defaultRegion.longitude,
-    latitude: defaultRegion.latitude,
+    longitude: 0,
+    latitude: 0,
   };
 
   for (const center in polygons) {
     if (polygons.hasOwnProperty(center)) {
       for (const polygon of polygons[center]) {
         for (const coordinate of polygon.coordinates) {
+          // initialize our points to something on the polygons, so we always
+          // end up centered around the polygons we're bounding
+          if (topLeft.longitude === 0) {
+            topLeft.longitude = coordinate.longitude;
+            topLeft.latitude = coordinate.latitude;
+            bottomRight.longitude = coordinate.longitude;
+            bottomRight.latitude = coordinate.latitude;
+          }
           if (coordinate.longitude < topLeft.longitude) {
             topLeft.longitude = coordinate.longitude;
           }
@@ -193,7 +201,7 @@ export const Map: React.FunctionComponent<MapProps> = ({
     }
   }, [centers, polygons]);
 
-  if (fetchErrors) {
+  if (fetchErrors && Object.keys(fetchErrors).length > 0) {
     let message: string = '';
     for (const center in fetchErrors) {
       if (fetchErrors.hasOwnProperty(center)) {

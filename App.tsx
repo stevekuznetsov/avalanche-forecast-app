@@ -14,6 +14,8 @@ import {Provider} from 'react-redux';
 
 import {Map} from '@app/components/Map';
 import {store} from '@app/api/avalanche/store';
+import {AvalancheForecast} from '@app/components/AvalancheForecast';
+import {ClientProps} from '@app/api/avalanche/Client';
 
 const centers: string[] = [
   // Forest Service Offices
@@ -40,14 +42,14 @@ const centers: string[] = [
   'WAC', // Wallowas: OR
 ];
 
+const clientProps: ClientProps = {host: 'https://api.avalanche.org'};
+
 const App = () => {
   return (
     <Provider store={store}>
       <View style={styles.container}>
-        <Map
-          clientProps={{host: 'https://api.avalanche.org'}}
-          centers={centers}
-        />
+        <Map clientProps={clientProps} centers={centers} />
+        {/*<AvalancheForecast clientProps={clientProps} id={111039} />*/}
       </View>
     </Provider>
   );
