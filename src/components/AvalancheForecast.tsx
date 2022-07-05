@@ -79,15 +79,20 @@ export const AvalancheForecast: React.FunctionComponent<
     // TODO(skuznets): the default text size for this WebView is tiny. Why?
     <View style={styles.view}>
       <View>
-        <Text>THE BOTTOM LINE</Text>
-        <View style={{flexDirection: 'row'}}>
-          <Image
-            style={styles.logo}
-            source={{
-              uri: dangerIcon(highestDangerToday),
-            }}
-          />
-          <WebView textZoom={100} source={{html: forecast.bottom_line}} />
+        <View style={styles.bound}>
+          <View style={styles.cornerIcon}>
+            <Image
+              style={styles.icon}
+              source={{
+                uri: dangerIcon(highestDangerToday),
+              }}
+            />
+          </View>
+          <View style={styles.content}>
+            <Text>THE BOTTOM LINE</Text>
+            <Text>{forecast.bottom_line}</Text>
+            <WebView textZoom={100} source={{html: forecast.bottom_line}} />
+          </View>
         </View>
       </View>
       <View>
@@ -107,12 +112,28 @@ const styles = StyleSheet.create({
   view: {
     ...StyleSheet.absoluteFillObject,
   },
-  logo: {
-    width: 66,
-    height: 58,
+  cornerIcon: {
+    position: 'absolute',
+    top: -20,
+    left: -20,
+    width: 60,
+    height: 40,
   },
-  svg: {
-    width: '250px',
-    height: '300px',
+  icon: {
+    height: '100%',
+    width: 'auto',
+  },
+  bound: {
+    margin: 30,
+    borderStyle: 'solid',
+    borderWidth: 1.2,
+    borderColor: '#c8cace',
+    shadowOffset: {width: 1, height: 2},
+    shadowOpacity: 0.8,
+    shadowColor: '#9da2a5',
+  },
+  content: {
+    flexDirection: 'column',
+    padding: 20,
   },
 });
