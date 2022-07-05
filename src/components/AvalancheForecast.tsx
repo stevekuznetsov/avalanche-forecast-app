@@ -11,6 +11,8 @@ import {
 } from '@app/api/avalanche/Types';
 import {Alert, Image, StyleSheet, Text, View} from 'react-native';
 import {WebView} from 'react-native-webview';
+import {format, parseISO} from 'date-fns';
+import {AvalancheDangerPyramid} from '@app/components/AvalancheDangerPyramid';
 
 export interface AvalancheForecastProps {
   clientProps: ClientProps;
@@ -74,18 +76,31 @@ export const AvalancheForecast: React.FunctionComponent<
   );
 
   return (
+    // TODO(skuznets): the default text size for this WebView is tiny. Why?
     <View style={styles.view}>
-      <Text>THE BOTTOM LINE</Text>
-      <Image
-        style={styles.logo}
-        source={{
-          uri: dangerIcon(highestDangerToday),
-        }}
-      />
-      <WebView source={{html: forecast.bottom_line}} />
-      <Text>AVALANCHE DANGER</Text>
+      <View>
+        <Text>THE BOTTOM LINE</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Image
+            style={styles.logo}
+            source={{
+              uri: dangerIcon(highestDangerToday),
+            }}
+          />
+          <WebView textZoom={100} source={{html: forecast.bottom_line}} />
+        </View>
+      </View>
+      <View>
+        <Text>AVALANCHE DANGER</Text>
+        <Text>{prettyFormat(forecast.published_time)}</Text>
+        <AvalancheDangerPyramid {...currentDanger} />
+      </View>
     </View>
   );
+};
+
+const prettyFormat = (date: string): string => {
+  return format(parseISO(date), 'EEEE, MMMM d, yyyy');
 };
 
 const styles = StyleSheet.create({
@@ -95,5 +110,9 @@ const styles = StyleSheet.create({
   logo: {
     width: 66,
     height: 58,
+  },
+  svg: {
+    width: '250px',
+    height: '300px',
   },
 });

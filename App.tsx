@@ -48,8 +48,8 @@ const App = () => {
   return (
     <Provider store={store}>
       <View style={styles.container}>
-        <Map clientProps={clientProps} centers={centers} />
-        {/*<AvalancheForecast clientProps={clientProps} id={111039} />*/}
+        {/*<Map clientProps={clientProps} centers={centers} />*/}
+        <AvalancheForecast clientProps={clientProps} id={111039} />
       </View>
     </Provider>
   );
