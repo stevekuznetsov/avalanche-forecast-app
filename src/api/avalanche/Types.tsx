@@ -65,6 +65,34 @@ export const dangerIcon = (level: DangerLevel): string => {
   return `https://nac-web-platforms.s3.us-west-1.amazonaws.com/assets/danger-icons/${display}.png`;
 };
 
+export const dangerText = (level: DangerLevel): string => {
+  let display: DangerLevel = level;
+  let prefix: string;
+  switch (level) {
+    case DangerLevel.Extreme:
+      prefix = 'Extreme';
+      break;
+    case DangerLevel.High:
+      prefix = 'High';
+      break;
+    case DangerLevel.Considerable:
+      prefix = 'Considerable';
+      break;
+    case DangerLevel.Moderate:
+      prefix = 'Moderate';
+      break;
+    case DangerLevel.Low:
+      prefix = 'Low';
+      break;
+    case DangerLevel.None:
+    case DangerLevel.GeneralInformation:
+    default:
+      prefix = 'No rating';
+      display = DangerLevel.None;
+  }
+  return `${prefix} (${display})`;
+};
+
 export interface FeatureComponent {
   type: string;
   // coordinates encodes a list of points, each as a two-member array [longitude,latitude]
@@ -109,7 +137,7 @@ export interface Product {
   media: MediaItem[];
 
   avalanche_center: AvalancheCenterMetadata;
-  forecast_zone: AvalancheForecastZone[];
+  forecast_zone: AvalancheForecastZoneSummary[];
 }
 
 export interface AvalancheProblem {
@@ -232,10 +260,150 @@ export interface AvalancheCenterMetadata {
   state: string;
 }
 
-export interface AvalancheForecastZone {
+export interface AvalancheForecastZoneSummary {
   id: number;
   name: string;
   url: string;
   state: string;
   zone_id: number;
+}
+
+export interface AvalancheCenter {
+  id: string;
+  name: string;
+  url: string;
+  city: string;
+  state: string;
+  timezone: string;
+  email: string;
+  phone: string;
+
+  config: AvalancheCenterConfiguration;
+  type: AvalancheCenterType;
+  widget_config: AvalancheCenterWidgetConfiguration;
+
+  created_at: string; // RFC3339 timestamps
+  zones: AvalancheForecastZone[];
+  nws_zones: NationalWeatherServiceZone[];
+  nws_offices: string[];
+
+  web_geometry: any; // TODO(skuznets) is this always `null`?
+  center_point: any; // TODO(skuznets) is this always `null`?
+  off_season: boolean; // TODO(skuznets) this seems to not be accurate
+}
+
+export enum AvalancheCenterType {
+  USFS = 'usfs',
+  State = 'state',
+  Volunteer = 'volunteer',
+}
+
+export interface AvalancheCenterConfiguration {
+  // expires_time and published_time seem to be fractional hours past midnight, in the locale
+  expires_time: number;
+  published_time: number;
+  blog: boolean;
+  weather_table: AvalancheCenterWeatherConfiguration[];
+  zone_order: string[];
+}
+
+export interface AvalancheCenterWeatherConfiguration {
+  autofill: any; // TODO(skuznets) is this always `null`?
+  zone_id: number; // this is the index in the list
+  forecast_point: LatLng; // TODO(skuznets) is this always `null`?
+  forecast_url: any; // TODO(skuznets) is this always `null`?
+}
+
+export interface LatLng {
+  latitude: number | null;
+  longitude: number | null;
+}
+
+export interface AvalancheCenterWidgetConfiguration {
+  forecast: AvalancheCenterForecastWidgetConfiguration;
+  danger_map: AvalancheCenterDangerMapWidgetConfiguration;
+  stations: AvalancheCenterStationsWidgetConfiguration;
+}
+
+export interface AvalancheCenterForecastWidgetConfiguration {
+  color: string;
+  elevInfoUrl: string;
+  glossary: boolean;
+  tabs: AvalancheCenterForecastWidgetTab[];
+}
+
+export interface AvalancheCenterForecastWidgetTab {
+  name: string;
+  id: string;
+  url: string;
+}
+
+export interface AvalancheCenterDangerMapWidgetConfiguration {
+  height: number;
+  saturation: number;
+  search: boolean;
+  geolocate: boolean;
+  advice: boolean;
+  center: LatLng;
+  zoom: number;
+}
+
+export enum Units {
+  English = 'english',
+  // TODO: what else?
+}
+
+export interface AvalancheCenterStationsWidgetConfiguration {
+  center: LatLng;
+  zoom: number;
+  center_id: string;
+  alternate_zones: any; // TODO: won't be null somewhere
+  units: Units;
+  timezone: string; // TODO: special value 'local' here
+  color_rules: boolean;
+  source_legend: boolean;
+  sources: string;
+  within: number;
+  external_modal_links: Record<string, ExternalModalLink>;
+  token: string; // TODO: uh-oh
+}
+
+export interface ExternalModalLink {
+  area_plots: string;
+  area_tables: string;
+}
+
+export enum AvalancheForecastZoneStatus {
+  Active = 'active',
+  Disabled = 'disabled',
+}
+
+export interface AvalancheForecastZone {
+  id: number;
+  name: string;
+  url: string;
+  zone_id: string;
+  config: AvalancheForecastZoneConfiguration;
+  status: AvalancheForecastZoneStatus;
+  rank: number;
+}
+
+export interface AvalancheForecastZoneConfiguration {
+  elevation_band_names: ElevationBandNames;
+}
+
+export interface ElevationBandNames {
+  lower: string;
+  middle: string;
+  upper: string;
+}
+
+export interface NationalWeatherServiceZone {
+  id: number;
+  zone_name: string;
+  zone_id: string;
+  state: string;
+  city: string;
+  contact: string;
+  zone_state: string;
 }

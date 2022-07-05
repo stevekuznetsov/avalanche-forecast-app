@@ -9,7 +9,7 @@
  */
 
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
 
 import {Map} from '@app/components/Map';
@@ -47,10 +47,15 @@ const clientProps: ClientProps = {host: 'https://api.avalanche.org'};
 const App = () => {
   return (
     <Provider store={store}>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         {/*<Map clientProps={clientProps} centers={centers} />*/}
-        <AvalancheForecast clientProps={clientProps} id={111039} />
-      </View>
+        <AvalancheForecast
+          clientProps={clientProps}
+          id={111039}
+          center_id={'NWAC'}
+          forecast_zone_id={428}
+        />
+      </SafeAreaView>
     </Provider>
   );
 };
