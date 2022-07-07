@@ -1,4 +1,5 @@
 import {ClientProps, NewClient} from '@app/api/avalanche/Client';
+import {AvalancheForecast} from '@app/components/AvalancheForecast';
 import {useAppDispatch, useAppSelector} from '@app/api/avalanche/hook';
 import {selectMapLayers, updateMapLayers} from '@app/api/avalanche/store';
 import MapView, {
@@ -42,6 +43,7 @@ const toPolygons = (layer: MapLayer): MapPolygonProps[] => {
   }
   return polygons;
 };
+
 
 const hexToRGBA = (hex: string, opacity: number): string => {
   const r = parseInt(hex.slice(1, 3), 16);
@@ -131,6 +133,7 @@ const defaultRegion: Region = {
 export interface MapProps {
   clientProps: ClientProps;
   centers: string[];
+  forecastVisible: boolean;
 }
 
 export const Map: React.FunctionComponent<MapProps> = ({
@@ -148,6 +151,7 @@ export const Map: React.FunctionComponent<MapProps> = ({
     {},
   );
   const [isReady, setIsReady] = React.useState<boolean>(false);
+  const [visible, setVisible] = React.useState<boolean>(false);
   const [region, setRegion] = React.useState<Region>(defaultRegion);
 
   // fetch map layers for every center, whenever the list of centers we care about changes
@@ -220,23 +224,36 @@ export const Map: React.FunctionComponent<MapProps> = ({
     setIsReady(true);
   }
 
+  function toggle(polygon) {
+    console.log('apressed area: ' + polygon.nativeID);
+    if(visible) setVisible(false);
+    else setVisible(true);
+}
+
   let toDisplay: ReactNode[] = [];
   for (const center in polygons) {
     if (polygons.hasOwnProperty(center)) {
       for (const polygon of polygons[center]) {
-        toDisplay.push(<Polygon key={polygon.nativeID} {...polygon} />);
+        toDisplay.push(
+          <Polygon key={polygon.nativeID} tappable={true} onPress={() => toggle(polygon)} {...polygon} />
+          );
       }
     }
   }
 
   return (
-    <MapView
-      style={styles.map}
-      initialRegion={region}
-      region={region}
-      onLayout={setReady}>
-      {isReady && toDisplay.map(a => a)}
-    </MapView>
+    <React.Fragment>
+      <MapView
+        style={styles.map}
+        initialRegion={region}
+        region={region}
+        zoomEnabled={false}
+        scrollEnabled={false}
+        onLayout={setReady}>
+        {isReady && toDisplay.map(a => a)}
+      </MapView>
+      {visible && (<AvalancheForecast clientProps={clientProps} id={111039} />)}
+    </React.Fragment>
   );
 };
 

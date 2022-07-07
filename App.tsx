@@ -42,14 +42,17 @@ const centers: string[] = [
   'WAC', // Wallowas: OR
 ];
 
+const center: string[] = [
+'NWAC'
+];
+
 const clientProps: ClientProps = {host: 'https://api.avalanche.org'};
 
 const App = () => {
   return (
     <Provider store={store}>
       <View style={styles.container}>
-        {/*<Map clientProps={clientProps} centers={centers} />*/}
-        <AvalancheForecast clientProps={clientProps} id={111039} />
+        <Map clientProps={clientProps} centers={center}/>
       </View>
     </Provider>
   );
