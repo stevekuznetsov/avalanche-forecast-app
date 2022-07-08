@@ -1,0 +1,6 @@
+--2022-07-08 13:23:16--  https://nac-web-platforms.s3.us-west-1.amazonaws.com/assets/problem-icons/Glide.png
+Resolving nac-web-platforms.s3.us-west-1.amazonaws.com (nac-web-platforms.s3.us-west-1.amazonaws.com)... 52.219.116.129
+Connecting to nac-web-platforms.s3.us-west-1.amazonaws.com (nac-web-platforms.s3.us-west-1.amazonaws.com)|52.219.116.129|:443... connected.
+HTTP request sent, awaiting response... 403 Forbidden
+2022-07-08 13:23:16 ERROR 403: Forbidden.
+

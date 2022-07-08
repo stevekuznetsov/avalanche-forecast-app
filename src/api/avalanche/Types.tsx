@@ -175,8 +175,8 @@ export enum AvalancheProblemName {
   DeepPersistentSlab = 'Deep Persistent Slab',
   WetLoose = 'Wet Loose',
   WetSlab = 'Wet Slab',
-  CorniceFall = 'Cornice Fal',
-  Glide = 'Glide',
+  CorniceFall = 'Cornice Fall',
+  Glide = 'Glide Avalanches',
 }
 
 export enum AvalancheProblemLikelihood {
