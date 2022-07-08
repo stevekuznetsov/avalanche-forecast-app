@@ -1,74 +1,16 @@
 import React from 'react';
 import {
   AvalancheDangerForecast,
-  dangerIcon,
-  DangerLevel,
   dangerText,
   ElevationBandNames,
 } from '@app/api/avalanche/Types';
-import {
-  Dimensions,
-  Image,
-  ImageBackground,
-  ScaledSize,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Dimensions, ScaledSize, StyleSheet, Text, View} from 'react-native';
 import {
   AvalancheDangerPyramid,
   AvalancheDangerTriangle,
 } from '@app/components/AvalancheDangerPyramid';
 import {addDays, format} from 'date-fns';
 import {AvalancheDangerIcon} from '@app/components/AvalancheDangerIcon';
-
-interface AvalancheDangerTableRowProps {
-  danger: DangerLevel;
-  outlook: DangerLevel;
-  elevation_band_name: string;
-  showOutlook: boolean;
-}
-
-const AvalancheDangerTableRow: React.FunctionComponent<
-  AvalancheDangerTableRowProps
-> = ({
-  danger,
-  outlook,
-  elevation_band_name,
-  showOutlook,
-}: AvalancheDangerTableRowProps) => {
-  return (
-    <>
-      <View style={styles.row}>
-        <Text style={styles.elevation}>{elevation_band_name}</Text>
-        <Text style={styles.text}>{dangerText(danger)}</Text>
-        <View style={styles.iconContainer}>
-          <Image
-            style={styles.icon}
-            source={{
-              uri: dangerIcon(danger),
-            }}
-          />
-        </View>
-      </View>
-      {showOutlook && (
-        <View style={styles.row}>
-          <Text style={styles.text}>{dangerText(outlook)}</Text>
-          <View style={styles.smallerIconContainer}>
-            <Image
-              style={styles.icon}
-              source={{
-                uri: dangerIcon(outlook),
-              }}
-            />
-          </View>
-        </View>
-      )}
-    </>
-  );
-};
-
-// TODO: left-align icons? maybe we need columns?
 
 const prettyFormat = (date: Date): string => {
   return format(date, 'EEEE, MMMM d, yyyy');
@@ -80,10 +22,6 @@ export interface AvalancheDangerTableProps {
   outlook: AvalancheDangerForecast;
   elevation_band_names: ElevationBandNames;
 }
-
-// const resizeModeFor = (url: string): ImageResizeMode => {
-//   Image.getSize(url)
-// }
 
 const initialScreen: ScaledSize = Dimensions.get('screen');
 
@@ -122,37 +60,42 @@ export const AvalancheDangerTable: React.FunctionComponent<
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <AvalancheDangerPyramid {...current} />
             <View style={styles.column}>
-              {[
-                elevation_band_names.upper,
-                elevation_band_names.middle,
-                elevation_band_names.lower,
-              ].map(name => (
-                <Text
-                  style={{...styles.elevation, ...styles.rowItem}}
-                  key={`elevation_band_name-${name}`}>
-                  {name}
-                </Text>
-              ))}
+              <Text style={{...styles.elevation, ...styles.rowItem}}>
+                {elevation_band_names.upper}
+              </Text>
+              <Text style={{...styles.elevation, ...styles.rowItem}}>
+                {elevation_band_names.middle}
+              </Text>
+              <Text style={{...styles.elevation, ...styles.rowItem}}>
+                {elevation_band_names.lower}
+              </Text>
             </View>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View style={styles.column}>
-                {[current.upper, current.middle, current.lower].map(level => (
-                  <Text
-                    style={{...styles.text, ...styles.rowItem}}
-                    key={`danger_text-${level}`}>
-                    {dangerText(level)}
-                  </Text>
-                ))}
+                <Text style={{...styles.text, ...styles.rowItem}}>
+                  {dangerText(current.upper)}
+                </Text>
+                <Text style={{...styles.text, ...styles.rowItem}}>
+                  {dangerText(current.middle)}
+                </Text>
+                <Text style={{...styles.text, ...styles.rowItem}}>
+                  {dangerText(current.lower)}
+                </Text>
               </View>
               <View style={styles.column}>
-                {[current.upper, current.middle, current.lower].map(level => (
-                  <AvalancheDangerIcon
-                    style={styles.rowItem}
-                    level={level}
-                    key={`danger_icon-${level}`}
-                  />
-                ))}
+                <AvalancheDangerIcon
+                  style={styles.rowItem}
+                  level={current.upper}
+                />
+                <AvalancheDangerIcon
+                  style={styles.rowItem}
+                  level={current.middle}
+                />
+                <AvalancheDangerIcon
+                  style={styles.rowItem}
+                  level={current.lower}
+                />
               </View>
             </View>
           </View>
@@ -211,7 +154,12 @@ export const AvalancheDangerTable: React.FunctionComponent<
             <Text style={styles.title}>Outlook</Text>
             <Text>{prettyFormat(addDays(date, 1))}</Text>
           </View>
-          <View style={{flexDirection: 'column', alignItems: 'center', marginHorizontal: 50}}>
+          <View
+            style={{
+              flexDirection: 'column',
+              alignItems: 'center',
+              marginHorizontal: 50,
+            }}>
             <AvalancheDangerTriangle {...outlook} />
             <View style={{height: 30}}>
               <Text

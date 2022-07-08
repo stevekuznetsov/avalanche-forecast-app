@@ -70,6 +70,5 @@ export const AvalancheDangerIcon: React.FunctionComponent<
   let actualStyle: ImageStyle = {...style};
   actualStyle.width = undefined;
   actualStyle.aspectRatio = sizes[level].width / sizes[level].height;
-  console.log(JSON.stringify(actualStyle));
   return images[level](actualStyle);
 };
