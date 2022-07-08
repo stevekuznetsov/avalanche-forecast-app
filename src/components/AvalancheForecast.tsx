@@ -1,32 +1,48 @@
 import React from 'react';
 import {ClientProps, NewClient} from '@app/api/avalanche/Client';
 import {useAppDispatch, useAppSelector} from '@app/api/avalanche/hook';
-import {selectProducts, updateProducts} from '@app/api/avalanche/store';
 import {
+  selectAvalancheCenters,
+  selectProducts,
+  updateAvalancheCenters,
+  updateProducts,
+} from '@app/api/avalanche/store';
+import {
+  AvalancheCenter,
   AvalancheDangerForecast,
+  AvalancheForecastZone,
   dangerIcon,
   DangerLevel,
+  ElevationBandNames,
   ForecastPeriod,
   Product,
 } from '@app/api/avalanche/Types';
-import {Alert, Image, StyleSheet, Text, View} from 'react-native';
-import {WebView} from 'react-native-webview';
+import {Alert, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {format, parseISO} from 'date-fns';
-import {AvalancheDangerPyramid} from '@app/components/AvalancheDangerPyramid';
+import {AvalancheDangerTable} from '@app/components/AvalancheDangerTable';
 
 export interface AvalancheForecastProps {
   clientProps: ClientProps;
+  center_id: string;
   id: number;
+  forecast_zone_id: number;
 }
 
 export const AvalancheForecast: React.FunctionComponent<
   AvalancheForecastProps
-> = ({clientProps, id}: AvalancheForecastProps) => {
+> = ({
+  clientProps,
+  center_id,
+  id,
+  forecast_zone_id,
+}: AvalancheForecastProps) => {
   const client = NewClient(clientProps);
   const products = useAppSelector(selectProducts);
+  const avalancheCenters = useAppSelector(selectAvalancheCenters);
   const dispatch = useAppDispatch();
 
   const [forecast, setForecast] = React.useState<Product>();
+  const [center, setCenter] = React.useState<AvalancheCenter>();
   const [fetchError, setFetchError] = React.useState<string>('');
 
   // fetch forecast when the id changes
@@ -46,12 +62,39 @@ export const AvalancheForecast: React.FunctionComponent<
         },
         (error: Error) => {
           if (mounted) {
-            setFetchError(String(error));
+            setFetchError((state: string): string => {
+              return state + String(error);
+            });
           }
         },
       );
     }
   }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // fetch center metadata when the center id changes
+  React.useEffect(() => {
+    let mounted = true;
+    if (avalancheCenters && avalancheCenters[center_id]) {
+      setCenter(avalancheCenters[center_id]);
+    } else {
+      client.center(
+        center_id,
+        (c: AvalancheCenter) => {
+          const fetchedCenters: Record<string, AvalancheCenter> = {};
+          fetchedCenters[center_id] = c;
+          dispatch(updateAvalancheCenters(fetchedCenters));
+          setCenter(c);
+        },
+        (error: Error) => {
+          if (mounted) {
+            setFetchError((state: string): string => {
+              return state + String(error);
+            });
+          }
+        },
+      );
+    }
+  }, [center_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (fetchError) {
     Alert.alert('Error fetching forecast.', fetchError, [
@@ -62,22 +105,60 @@ export const AvalancheForecast: React.FunctionComponent<
     return;
   }
 
-  if (!forecast) {
+  if (!forecast || !center) {
     return <Text>Loading...</Text>;
   }
 
-  const currentDanger: AvalancheDangerForecast = forecast.danger.filter(
-    item => item.valid_day === ForecastPeriod.Current,
-  )[0];
+  const currentDanger: AvalancheDangerForecast | undefined =
+    forecast.danger.find(item => item.valid_day === ForecastPeriod.Current);
+  if (!currentDanger) {
+    Alert.alert('No danger recorded.', '', [
+      {
+        text: 'OK',
+      },
+    ]);
+    return;
+  }
   const highestDangerToday: DangerLevel = Math.max(
     currentDanger.lower,
     currentDanger.middle,
     currentDanger.upper,
   );
 
+  let outlookDanger: AvalancheDangerForecast | undefined = forecast.danger.find(
+    item => item.valid_day === ForecastPeriod.Tomorrow,
+  );
+  if (!outlookDanger || !outlookDanger.upper) {
+    // sometimes, we get an entry of nulls for tomorrow
+    outlookDanger = {
+      lower: DangerLevel.None,
+      middle: DangerLevel.None,
+      upper: DangerLevel.None,
+      valid_day: ForecastPeriod.Tomorrow,
+    };
+  }
+
+  const zone: AvalancheForecastZone | undefined = center.zones.find(
+    item => item.id === forecast_zone_id,
+  );
+  if (!zone) {
+    Alert.alert(
+      'Avalanche forecast zone not found',
+      `No such zone ${forecast_zone_id} for center ${center_id}.`,
+      [
+        {
+          text: 'OK',
+        },
+      ],
+    );
+    return;
+  }
+  const elevationBandNames: ElevationBandNames =
+    zone.config.elevation_band_names;
+
   return (
     // TODO(skuznets): the default text size for this WebView is tiny. Why?
-    <View style={styles.view}>
+    <ScrollView style={styles.view}>
       <View>
         <View style={styles.bound}>
           <View style={styles.cornerIcon}>
@@ -89,23 +170,20 @@ export const AvalancheForecast: React.FunctionComponent<
             />
           </View>
           <View style={styles.content}>
-            <Text>THE BOTTOM LINE</Text>
+            <Text style={styles.title}>THE BOTTOM LINE</Text>
             <Text>{forecast.bottom_line}</Text>
-            <WebView textZoom={100} source={{html: forecast.bottom_line}} />
+            {/*<WebView textZoom={100} source={{html: forecast.bottom_line}} />*/}
           </View>
         </View>
       </View>
-      <View>
-        <Text>AVALANCHE DANGER</Text>
-        <Text>{prettyFormat(forecast.published_time)}</Text>
-        <AvalancheDangerPyramid {...currentDanger} />
-      </View>
-    </View>
+      <AvalancheDangerTable
+        date={parseISO(forecast.published_time)}
+        current={currentDanger}
+        outlook={outlookDanger}
+        elevation_band_names={elevationBandNames}
+      />
+    </ScrollView>
   );
-};
-
-const prettyFormat = (date: string): string => {
-  return format(parseISO(date), 'EEEE, MMMM d, yyyy');
 };
 
 const styles = StyleSheet.create({
@@ -116,12 +194,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -20,
     left: -20,
-    width: 60,
-    height: 40,
+    width: 50,
+    height: 50,
   },
   icon: {
     height: '100%',
     width: 'auto',
+    resizeMode: 'contain',
   },
   bound: {
     margin: 30,
@@ -135,5 +214,9 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'column',
     padding: 20,
+  },
+  title: {
+    fontWeight: 'bold',
+    paddingBottom: 10,
   },
 });

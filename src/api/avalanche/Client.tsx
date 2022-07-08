@@ -1,4 +1,9 @@
-import {MapLayer, Product, ProductType} from '@app/api/avalanche/Types';
+import {
+  AvalancheCenter,
+  MapLayer,
+  Product,
+  ProductType,
+} from '@app/api/avalanche/Types';
 import {format} from 'date-fns';
 
 export interface ClientProps {
@@ -6,6 +11,11 @@ export interface ClientProps {
 }
 
 export interface Client {
+  center: (
+    center_id: string,
+    callback: (center: AvalancheCenter) => void,
+    handleError: (error: Error) => void,
+  ) => void;
   mapLayer: (
     center_id: string,
     callback: (layer: MapLayer) => void,
@@ -28,6 +38,31 @@ export interface Client {
 
 export const NewClient = (props: ClientProps): Client => {
   const client: Client = {
+    center: (
+      center_id: string,
+      callback: (center: AvalancheCenter) => void,
+      handleError: (error: Error) => void,
+    ) => {
+      fetch(`${props.host}/v2/public/avalanche-center/${center_id}`, {
+        headers: {Accept: 'application/json'},
+      })
+        .then(async res => {
+          if (!res.ok) {
+            const raw = await res.text();
+            throw new Error(res.status + ': ' + raw);
+          }
+          const raw = await res.json();
+          if (!raw) {
+            throw new Error(
+              `No center metadata exists for center ${center_id}.`,
+            );
+          }
+          callback(raw);
+        })
+        .catch(error => {
+          handleError(error);
+        });
+    },
     mapLayer: (
       center_id: string,
       callback: (layer: MapLayer) => void,
