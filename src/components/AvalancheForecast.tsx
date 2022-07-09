@@ -17,10 +17,19 @@ import {
   ForecastPeriod,
   Product,
 } from '@app/api/avalanche/Types';
-import {Alert, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import {parseISO} from 'date-fns';
 import {AvalancheDangerTable} from '@app/components/AvalancheDangerTable';
 import RenderHTML from 'react-native-render-html';
+import {AvalancheDangerIcon} from '@app/components/AvalancheDangerIcon';
 
 export interface AvalancheForecastProps {
   clientProps: ClientProps;
@@ -45,6 +54,7 @@ export const AvalancheForecast: React.FunctionComponent<
   const [forecast, setForecast] = React.useState<Product>();
   const [center, setCenter] = React.useState<AvalancheCenter>();
   const [fetchError, setFetchError] = React.useState<string>('');
+  const {width} = useWindowDimensions();
 
   // fetch forecast when the id changes
   React.useEffect(() => {
@@ -161,14 +171,7 @@ export const AvalancheForecast: React.FunctionComponent<
     <ScrollView style={styles.view}>
       <View>
         <View style={styles.bound}>
-          <View style={styles.cornerIcon}>
-            <Image
-              style={styles.icon}
-              source={{
-                uri: dangerIcon(highestDangerToday),
-              }}
-            />
-          </View>
+          <AvalancheDangerIcon style={styles.icon} level={highestDangerToday} />
           <View style={styles.content}>
             <Text style={styles.title}>THE BOTTOM LINE</Text>
             <RenderHTML
@@ -192,20 +195,14 @@ const styles = StyleSheet.create({
   view: {
     ...StyleSheet.absoluteFillObject,
   },
-  cornerIcon: {
+  icon: {
     position: 'absolute',
-    top: -20,
-    left: -20,
-    width: 50,
+    top: -25,
+    left: -25,
     height: 50,
   },
-  icon: {
-    height: '100%',
-    width: 'auto',
-    resizeMode: 'contain',
-  },
   bound: {
-    margin: 20,
+    margin: 25,
     borderStyle: 'solid',
     borderWidth: 1.2,
     borderColor: 'rgb(200,202,206)',
@@ -215,10 +212,12 @@ const styles = StyleSheet.create({
   },
   content: {
     flexDirection: 'column',
-    padding: 20,
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingBottom: 0,
+    paddingRight: 5,
   },
   title: {
     fontWeight: 'bold',
-    paddingBottom: 10,
   },
 });
