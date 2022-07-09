@@ -20,8 +20,7 @@ import {
 import {Alert, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {parseISO} from 'date-fns';
 import {AvalancheDangerTable} from '@app/components/AvalancheDangerTable';
-import {HTMLBodyView} from '@app/components/HTMLBodyView';
-import {WebViewMessageEvent} from 'react-native-webview';
+import RenderHTML from 'react-native-render-html';
 
 export interface AvalancheForecastProps {
   clientProps: ClientProps;
@@ -172,7 +171,10 @@ export const AvalancheForecast: React.FunctionComponent<
           </View>
           <View style={styles.content}>
             <Text style={styles.title}>THE BOTTOM LINE</Text>
-            <HTMLBodyView body={forecast.bottom_line} />
+            <RenderHTML
+              source={{html: forecast.bottom_line}}
+              contentWidth={width}
+            />
           </View>
         </View>
       </View>
