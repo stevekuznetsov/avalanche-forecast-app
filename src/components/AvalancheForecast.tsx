@@ -18,8 +18,10 @@ import {
   Product,
 } from '@app/api/avalanche/Types';
 import {Alert, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {format, parseISO} from 'date-fns';
+import {parseISO} from 'date-fns';
 import {AvalancheDangerTable} from '@app/components/AvalancheDangerTable';
+import {HTMLBodyView} from '@app/components/HTMLBodyView';
+import {WebViewMessageEvent} from 'react-native-webview';
 
 export interface AvalancheForecastProps {
   clientProps: ClientProps;
@@ -157,7 +159,6 @@ export const AvalancheForecast: React.FunctionComponent<
     zone.config.elevation_band_names;
 
   return (
-    // TODO(skuznets): the default text size for this WebView is tiny. Why?
     <ScrollView style={styles.view}>
       <View>
         <View style={styles.bound}>
@@ -171,8 +172,7 @@ export const AvalancheForecast: React.FunctionComponent<
           </View>
           <View style={styles.content}>
             <Text style={styles.title}>THE BOTTOM LINE</Text>
-            <Text>{forecast.bottom_line}</Text>
-            {/*<WebView textZoom={100} source={{html: forecast.bottom_line}} />*/}
+            <HTMLBodyView body={forecast.bottom_line} />
           </View>
         </View>
       </View>
@@ -203,13 +203,13 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   bound: {
-    margin: 30,
+    margin: 20,
     borderStyle: 'solid',
     borderWidth: 1.2,
-    borderColor: '#c8cace',
+    borderColor: 'rgb(200,202,206)',
     shadowOffset: {width: 1, height: 2},
     shadowOpacity: 0.8,
-    shadowColor: '#9da2a5',
+    shadowColor: 'rgb(157,162,165)',
   },
   content: {
     flexDirection: 'column',
