@@ -30,6 +30,7 @@ import {parseISO} from 'date-fns';
 import {AvalancheDangerTable} from '@app/components/AvalancheDangerTable';
 import RenderHTML from 'react-native-render-html';
 import {AvalancheDangerIcon} from '@app/components/AvalancheDangerIcon';
+import {AvalancheProblemCard} from '@app/components/AvalancheProblemCard';
 
 export interface AvalancheForecastProps {
   clientProps: ClientProps;
@@ -187,6 +188,12 @@ export const AvalancheForecast: React.FunctionComponent<
         outlook={outlookDanger}
         elevation_band_names={elevationBandNames}
       />
+      {forecast.forecast_avalanche_problems.map((problem, index) => (
+        <AvalancheProblemCard
+          key={`avalanche-problem-${index}`}
+          problem={problem}
+        />
+      ))}
     </ScrollView>
   );
 };
