@@ -1,16 +1,17 @@
 import React from 'react';
-import {AvalancheProblem, AvalancheProblemSize} from '@app/api/avalanche/Types';
+import { AvalancheProblem, AvalancheProblemSize, ElevationBandNames } from "@app/api/avalanche/Types";
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
-import {DangerRose} from '@app/components/DangerRose';
+import {AnnotatedDangerRose, DangerRose} from '@app/components/DangerRose';
 import {AvalancheProblemIcon} from '@app/components/AvalancheProblemIcon';
 import {
   AvalancheProblemLikelihoodLine,
   likelihoodText,
 } from '@app/components/AvalancheProblemLikelihoodLine';
-import { AvalancheProblemSizeLine } from "@app/components/AvalancheProblemSizeLine";
+import {AvalancheProblemSizeLine} from '@app/components/AvalancheProblemSizeLine';
 
 export interface AvalancheProblemCardProps {
   problem: AvalancheProblem;
+  names: ElevationBandNames;
 }
 
 const formatSizesShort = (size: AvalancheProblemSize[]): string => {
@@ -22,7 +23,7 @@ const formatSizesShort = (size: AvalancheProblemSize[]): string => {
 
 export const AvalancheProblemCard: React.FunctionComponent<
   AvalancheProblemCardProps
-> = ({problem}: AvalancheProblemCardProps) => {
+> = ({problem, names}: AvalancheProblemCardProps) => {
   const [open, setOpen] = React.useState<boolean>(true);
   const toggle = () => {
     setOpen(!open);
@@ -31,13 +32,21 @@ export const AvalancheProblemCard: React.FunctionComponent<
   return (
     <TouchableHighlight onPress={toggle}>
       {open ? (
-        <View style={{...styles.card, flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
+        <View
+          style={{
+            ...styles.card,
+            flexWrap: 'wrap',
+            justifyContent: 'space-evenly',
+          }}>
           <AvalancheProblemIcon
             style={styles.panel}
             problem={problem.avalanche_problem_id}
           />
           <View style={styles.panel}>
-            <DangerRose style={{width: '100%'}} locations={problem.location} />
+            <AnnotatedDangerRose
+              rose={{style: {width: '100%'}, locations: problem.location}}
+              elevationBandNames={names}
+            />
           </View>
           <View style={styles.panel}>
             <AvalancheProblemLikelihoodLine likelihood={problem.likelihood} />

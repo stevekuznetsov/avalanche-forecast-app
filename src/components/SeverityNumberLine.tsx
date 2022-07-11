@@ -70,10 +70,7 @@ export const SeverityNumberLine: React.FunctionComponent<
       </View>
       <View style={{justifyContent: 'space-around', height: '95%'}}>
         {labels.map((label, index) => (
-          <View
-            key={`label-${label}`}
-            // style={{top: `${100 * (index / labels.length)}%`, borderWidth: 1}}
-          >
+          <View key={`label-${label}`}>
             <Text style={labelStyle(index)}>{label}</Text>
           </View>
         ))}

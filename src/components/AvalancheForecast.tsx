@@ -192,6 +192,7 @@ export const AvalancheForecast: React.FunctionComponent<
         <AvalancheProblemCard
           key={`avalanche-problem-${index}`}
           problem={problem}
+          names={elevationBandNames}
         />
       ))}
     </ScrollView>

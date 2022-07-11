@@ -1,7 +1,10 @@
-import {AvalancheProblemLocation} from '@app/api/avalanche/Types';
+import {
+  AvalancheProblemLocation,
+  ElevationBandNames,
+} from '@app/api/avalanche/Types';
 import Svg, {Path} from 'react-native-svg';
-import { StyleSheet, View, ViewStyle } from "react-native";
-import React, { ReactElement, SVGProps } from "react";
+import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
+import React, {PropsWithChildren, ReactElement} from 'react';
 
 export interface DangerRoseProps {
   style: ViewStyle;
@@ -87,6 +90,109 @@ export const DangerRose: React.FunctionComponent<DangerRoseProps> = ({
       strokeMiterlimit={1.5}>
       {elements}
     </Svg>
+  );
+};
+
+interface dimensions {
+  width: number;
+  height: number;
+}
+
+interface BottomAnchorTextProps {
+  style: TextStyle;
+  top: boolean;
+  left: boolean;
+}
+
+const AnchoredText: React.FunctionComponent<
+  PropsWithChildren<BottomAnchorTextProps>
+> = props => {
+  const [componentDimensions, setComponentDimensions] =
+    React.useState<dimensions>({
+      height: 0,
+      width: 0,
+    });
+
+  return (
+    <Text
+      onLayout={event => {
+        const {width, height} = event.nativeEvent.layout;
+        setComponentDimensions({width: width, height: height});
+      }}
+      style={{
+        ...props.style,
+        position: 'absolute',
+        transform: [
+          {translateX: ((props.left ? 1 : -1) * componentDimensions.width) / 2},
+          {translateY: ((props.top ? 1 : -1) * componentDimensions.height) / 2},
+        ],
+      }}>
+      {props.children}
+    </Text>
+  );
+};
+
+export interface AnnotatedDangerRoseProps {
+  rose: DangerRoseProps;
+  elevationBandNames: ElevationBandNames;
+}
+
+export const AnnotatedDangerRose: React.FunctionComponent<
+  AnnotatedDangerRoseProps
+> = ({rose, elevationBandNames}: AnnotatedDangerRoseProps) => {
+  return (
+    <View>
+      <View
+        style={{
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+        }}>
+        <Text>{'N'}</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text>{'W'}</Text>
+          <AnchoredText
+            top={false}
+            left={false}
+            style={{
+              right: '80%',
+              bottom: '76%',
+            }}>
+            {'NW'}
+          </AnchoredText>
+          <AnchoredText
+            top={true}
+            left={false}
+            style={{
+              right: '80%',
+              top: '76%',
+            }}>
+            {'SW'}
+          </AnchoredText>
+          <DangerRose {...rose} />
+          <Text>{'E'}</Text>
+          <AnchoredText
+            top={false}
+            left={true}
+            style={{
+              left: '85%',
+              bottom: '76%',
+            }}>
+            {'NE'}
+          </AnchoredText>
+          <AnchoredText
+            top={true}
+            left={true}
+            style={{
+              left: '85%',
+              top: '76%',
+            }}>
+            {'SE'}
+          </AnchoredText>
+        </View>
+        <Text>{'S'}</Text>
+      </View>
+    </View>
   );
 };
 

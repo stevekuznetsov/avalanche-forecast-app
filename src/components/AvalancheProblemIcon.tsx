@@ -124,10 +124,8 @@ export const AvalancheProblemIcon: React.FunctionComponent<
   let actualStyle: ImageStyle = {...style};
   if (actualStyle.height) {
     actualStyle.width = undefined;
-    console.log(`setting width undefined, height=${actualStyle.height}`)
   } else {
     actualStyle.height = undefined;
-    console.log(`setting height undefined, width=${actualStyle.width}`)
   }
   actualStyle.aspectRatio = sizes[problem].width / sizes[problem].height;
   return images[problem](actualStyle);
