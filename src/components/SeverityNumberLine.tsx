@@ -68,7 +68,7 @@ export const SeverityNumberLine: React.FunctionComponent<
           />
         </Svg>
       </View>
-      <View style={{justifyContent: 'space-around', height: '95%'}}>
+      <View style={{justifyContent: 'space-between', height: '83%'}}>
         {labels.map((label, index) => (
           <View key={`label-${label}`}>
             <Text style={labelStyle(index)}>{label}</Text>
@@ -96,6 +96,6 @@ const styles = StyleSheet.create({
   line: {
     height: '100%',
     aspectRatio: 25 / 200,
-    margin: 2,
+    marginRight: 4,
   },
 });

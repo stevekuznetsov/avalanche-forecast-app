@@ -1,5 +1,9 @@
 import React from 'react';
-import { AvalancheProblem, AvalancheProblemSize, ElevationBandNames } from "@app/api/avalanche/Types";
+import {
+  AvalancheProblem,
+  AvalancheProblemSize,
+  ElevationBandNames,
+} from '@app/api/avalanche/Types';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {AnnotatedDangerRose, DangerRose} from '@app/components/DangerRose';
 import {AvalancheProblemIcon} from '@app/components/AvalancheProblemIcon';
@@ -38,10 +42,20 @@ export const AvalancheProblemCard: React.FunctionComponent<
             flexWrap: 'wrap',
             justifyContent: 'space-evenly',
           }}>
-          <AvalancheProblemIcon
-            style={styles.panel}
-            problem={problem.avalanche_problem_id}
-          />
+          <View
+            style={{
+              ...styles.panel,
+              justifyContent: 'space-around',
+              alignItems: 'center',
+            }}>
+            <AvalancheProblemIcon
+              style={styles.largeIcon}
+              problem={problem.avalanche_problem_id}
+            />
+            <Text style={{fontWeight: 'bold', textAlignVertical: 'center'}}>
+              {problem.name}
+            </Text>
+          </View>
           <View style={styles.panel}>
             <AnnotatedDangerRose
               rose={{style: {width: '100%'}, locations: problem.location}}
@@ -102,5 +116,8 @@ const styles = StyleSheet.create({
   },
   panel: {
     width: '35%',
+  },
+  largeIcon: {
+    width: '80%',
   },
 });
