@@ -1,6 +1,4 @@
 // MapLayer describes forecast zones to be drawn for an avalanche center
-import {Region} from 'react-native-maps';
-
 export interface MapLayer {
   type: string; // TODO(skuznets): is this ever something other than 'FeatureCollection'?
   features: Feature[];
@@ -24,7 +22,7 @@ export interface Feature {
 // - consumer directions for how to render the feature, like fill color & stroke
 export interface FeatureProperties {
   name: string;
-  center: string;
+  center_id: string;
   center_link: string;
   state: string;
   link: string;

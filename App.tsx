@@ -9,53 +9,68 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
 
 import {Map} from '@app/components/Map';
 import {store} from '@app/api/avalanche/store';
 import {AvalancheForecast} from '@app/components/AvalancheForecast';
 import {ClientProps} from '@app/api/avalanche/Client';
-
-const centers: string[] = [
-  // Forest Service Offices
-  'BTAC', // Bridger-Teton: ID, WY
-  // 'CNFAIC', // Chugach: AK
-  'FAC', // Flathead: MT
-  'GNFAC', // Gallatin: MT, WY, ID
-  'IPAC', // Idaho Panhandle: ID, MT
-  'NWAC', // Northwest: WA, OR
-  'MSAC', // Mount Shasta: CA
-  // 'MWAC', // Mount Washington: NH
-  'PAC', // Payette: ID
-  'SNFAC', // Sawtooths: ID
-  'SAC', // Sierra: CA
-  'WCMAC', // West Central Montana: MT
-
-  // State Offices
-  'CAIC', // Colorado: CO
-
-  // Local Non-profit Offices
-  'COAA', // Central Oregon: OR
-  'CBAC', // Crested Butte: CO
-  'ESAC', // Eastern Sierra: CA
-  'WAC', // Wallowas: OR
-];
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {AvalancheCenterSelector} from '@app/components/AvalancheCenterSelector';
+import { formatISO } from "date-fns";
 
 const clientProps: ClientProps = {host: 'https://api.avalanche.org'};
+
+const SelectorScreen = ({navigation}) => {
+  return (
+    <SafeAreaView style={styles.container}>
+      <AvalancheCenterSelector clientProps={clientProps} date={formatISO(new Date('2022-03-01'))} navigation={navigation} />
+    </SafeAreaView>
+  );
+};
+
+const MapScreen = ({route, navigation}) => {
+  const {centerId, date} = route.params;
+  return (
+    <SafeAreaView style={styles.container}>
+      <Map clientProps={clientProps} centers={[centerId]} date={date} navigation={navigation} />
+    </SafeAreaView>
+  );
+};
+
+const ForecastScreen = ({route}) => {
+  const {center_id, forecast_zone_id, date} = route.params;
+  return (
+    <SafeAreaView style={styles.container}>
+      <AvalancheForecast clientProps={clientProps} center_id={center_id} forecast_zone_id={forecast_zone_id} date={date} />
+    </SafeAreaView>
+  );
+};
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <Provider store={store}>
-      <SafeAreaView style={styles.container}>
-        {/*<Map clientProps={clientProps} centers={centers} />*/}
-        <AvalancheForecast
-          clientProps={clientProps}
-          id={111039}
-          center_id={'NWAC'}
-          forecast_zone_id={428}
-        />
-      </SafeAreaView>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Select An Avalanche Center">
+            <Stack.Screen name="Select An Avalanche Center" component={SelectorScreen} />
+            <Stack.Screen name="Select An Avalanche Forecast Zone" component={MapScreen} />
+            <Stack.Screen name="Avalanche Forecast" component={ForecastScreen} />
+          </Stack.Navigator>
+          {/*<Map clientProps={clientProps} centers={centers} />*/}
+          {/*<AvalancheForecast*/}
+          {/*  clientProps={clientProps}*/}
+          {/*  id={111039}*/}
+          {/*  center_id={'NWAC'}*/}
+          {/*  forecast_zone_id={428}*/}
+          {/*/>*/}
+        </NavigationContainer>
+      </SafeAreaProvider>
     </Provider>
   );
 };
@@ -63,9 +78,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    flex: 1, //the container will fill the whole screen.
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    flex: 1,
   },
 });
 

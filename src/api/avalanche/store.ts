@@ -7,10 +7,7 @@ export const avalancheCenters = createSlice({
   name: 'avalancheCenters',
   initialState: initialAvalancheCenters,
   reducers: {
-    updateAvalancheCenters: (
-      state,
-      action: PayloadAction<Record<string, AvalancheCenter>>,
-    ) => {
+    updateAvalancheCenters: (state, action: PayloadAction<Record<string, AvalancheCenter>>) => {
       for (const name in action.payload) {
         if (action.payload.hasOwnProperty(name)) {
           state[name] = action.payload[name];
@@ -20,8 +17,7 @@ export const avalancheCenters = createSlice({
   },
 });
 
-export const selectAvalancheCenters = (state: RootState) =>
-  state.avalancheCenters;
+export const selectAvalancheCenters = (state: RootState) => state.avalancheCenters;
 export const {updateAvalancheCenters} = avalancheCenters.actions;
 
 const initialMapLayers: Record<string, MapLayer> = {};
@@ -30,10 +26,7 @@ export const mapLayers = createSlice({
   name: 'mapLayers',
   initialState: initialMapLayers,
   reducers: {
-    updateMapLayers: (
-      state,
-      action: PayloadAction<Record<string, MapLayer>>,
-    ) => {
+    updateMapLayers: (state, action: PayloadAction<Record<string, MapLayer>>) => {
       for (const name in action.payload) {
         if (action.payload.hasOwnProperty(name)) {
           state[name] = action.payload[name];

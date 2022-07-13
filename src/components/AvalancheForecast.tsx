@@ -1,9 +1,8 @@
 import React from 'react';
-import {ClientProps, NewClient} from '@app/api/avalanche/Client';
-import {useAppDispatch, useAppSelector} from '@app/api/avalanche/hook';
-import {selectAvalancheCenters, selectProducts, updateAvalancheCenters, updateProducts} from '@app/api/avalanche/store';
-import {AvalancheCenter, AvalancheDangerForecast, AvalancheForecastZone, dangerIcon, DangerLevel, ElevationBandNames, ForecastPeriod, Product} from '@app/api/avalanche/Types';
-import {Alert, Image, ScrollView, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {ClientProps} from '@app/api/avalanche/Client';
+import {useCenterMetadata, useForecast} from '@app/api/avalanche/hook';
+import {AvalancheDangerForecast, AvalancheForecastZone, DangerLevel, ElevationBandNames, ForecastPeriod, Product} from '@app/api/avalanche/Types';
+import {Alert, ScrollView, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import {parseISO} from 'date-fns';
 import {AvalancheDangerTable} from '@app/components/AvalancheDangerTable';
 import RenderHTML from 'react-native-render-html';
@@ -13,71 +12,29 @@ import {AvalancheProblemCard} from '@app/components/AvalancheProblemCard';
 export interface AvalancheForecastProps {
   clientProps: ClientProps;
   center_id: string;
-  id: number;
+  date: string;
   forecast_zone_id: number;
 }
 
-export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> = ({clientProps, center_id, id, forecast_zone_id}: AvalancheForecastProps) => {
-  const client = NewClient(clientProps);
-  const products = useAppSelector(selectProducts);
-  const avalancheCenters = useAppSelector(selectAvalancheCenters);
-  const dispatch = useAppDispatch();
+export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> = ({clientProps, center_id, date, forecast_zone_id}: AvalancheForecastProps) => {
+  const forecastDate: Date = parseISO(date);
 
-  const [forecast, setForecast] = React.useState<Product>();
-  const [center, setCenter] = React.useState<AvalancheCenter>();
-  const [fetchError, setFetchError] = React.useState<string>('');
   const {width} = useWindowDimensions();
+  const {forecast, fetchError} = useForecast(clientProps, center_id, forecast_zone_id, forecastDate);
+  const {center, centerFetchError} = useCenterMetadata(clientProps, center_id);
 
-  // fetch forecast when the id changes
-  React.useEffect(() => {
-    let mounted = true;
-    // TODO(skuznets): in the future we should use e-tags or similar to re-fetch products when they change
-    if (products && products[id]) {
-      setForecast(products[id]);
-    } else {
-      client.productById(
-        id,
-        (product: Product) => {
-          const fetchedProducts: Record<string, Product> = {};
-          fetchedProducts[id] = product;
-          dispatch(updateProducts(fetchedProducts));
-          setForecast(product);
-        },
-        (error: Error) => {
-          if (mounted) {
-            setFetchError((state: string): string => {
-              return state + String(error);
-            });
-          }
-        },
-      );
-    }
-  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // fetch center metadata when the center id changes
-  React.useEffect(() => {
-    let mounted = true;
-    if (avalancheCenters && avalancheCenters[center_id]) {
-      setCenter(avalancheCenters[center_id]);
-    } else {
-      client.center(
-        center_id,
-        (c: AvalancheCenter) => {
-          const fetchedCenters: Record<string, AvalancheCenter> = {};
-          fetchedCenters[center_id] = c;
-          dispatch(updateAvalancheCenters(fetchedCenters));
-          setCenter(c);
-        },
-        (error: Error) => {
-          if (mounted) {
-            setFetchError((state: string): string => {
-              return state + String(error);
-            });
-          }
-        },
-      );
-    }
-  }, [center_id]); // eslint-disable-line react-hooks/exhaustive-deps
+  if (centerFetchError) {
+    Alert.alert('Error fetching center metadata.', centerFetchError, [
+      {
+        text: 'OK',
+      },
+    ]);
+    return (
+      <View>
+        <Text>{centerFetchError}</Text>
+      </View>
+    );
+  }
 
   if (fetchError) {
     Alert.alert('Error fetching forecast.', fetchError, [
@@ -85,7 +42,11 @@ export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> 
         text: 'OK',
       },
     ]);
-    return;
+    return (
+      <View>
+        <Text>{fetchError}</Text>
+      </View>
+    );
   }
 
   if (!forecast || !center) {
@@ -99,7 +60,11 @@ export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> 
         text: 'OK',
       },
     ]);
-    return;
+    return (
+      <View>
+        <Text>{'No danger recorded'}</Text>
+      </View>
+    );
   }
   const highestDangerToday: DangerLevel = Math.max(currentDanger.lower, currentDanger.middle, currentDanger.upper);
 
@@ -116,12 +81,17 @@ export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> 
 
   const zone: AvalancheForecastZone | undefined = center.zones.find(item => item.id === forecast_zone_id);
   if (!zone) {
-    Alert.alert('Avalanche forecast zone not found', `No such zone ${forecast_zone_id} for center ${center_id}.`, [
+    const message: string = `No such zone ${forecast_zone_id} for center ${center_id}.`;
+    Alert.alert('Avalanche forecast zone not found', message, [
       {
         text: 'OK',
       },
     ]);
-    return;
+    return (
+      <View>
+        <Text>{message}</Text>
+      </View>
+    );
   }
   const elevationBandNames: ElevationBandNames = zone.config.elevation_band_names;
 
