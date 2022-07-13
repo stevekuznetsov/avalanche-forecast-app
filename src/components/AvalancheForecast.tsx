@@ -1,31 +1,9 @@
 import React from 'react';
 import {ClientProps, NewClient} from '@app/api/avalanche/Client';
 import {useAppDispatch, useAppSelector} from '@app/api/avalanche/hook';
-import {
-  selectAvalancheCenters,
-  selectProducts,
-  updateAvalancheCenters,
-  updateProducts,
-} from '@app/api/avalanche/store';
-import {
-  AvalancheCenter,
-  AvalancheDangerForecast,
-  AvalancheForecastZone,
-  dangerIcon,
-  DangerLevel,
-  ElevationBandNames,
-  ForecastPeriod,
-  Product,
-} from '@app/api/avalanche/Types';
-import {
-  Alert,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import {selectAvalancheCenters, selectProducts, updateAvalancheCenters, updateProducts} from '@app/api/avalanche/store';
+import {AvalancheCenter, AvalancheDangerForecast, AvalancheForecastZone, dangerIcon, DangerLevel, ElevationBandNames, ForecastPeriod, Product} from '@app/api/avalanche/Types';
+import {Alert, Image, ScrollView, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import {parseISO} from 'date-fns';
 import {AvalancheDangerTable} from '@app/components/AvalancheDangerTable';
 import RenderHTML from 'react-native-render-html';
@@ -39,14 +17,7 @@ export interface AvalancheForecastProps {
   forecast_zone_id: number;
 }
 
-export const AvalancheForecast: React.FunctionComponent<
-  AvalancheForecastProps
-> = ({
-  clientProps,
-  center_id,
-  id,
-  forecast_zone_id,
-}: AvalancheForecastProps) => {
+export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> = ({clientProps, center_id, id, forecast_zone_id}: AvalancheForecastProps) => {
   const client = NewClient(clientProps);
   const products = useAppSelector(selectProducts);
   const avalancheCenters = useAppSelector(selectAvalancheCenters);
@@ -121,8 +92,7 @@ export const AvalancheForecast: React.FunctionComponent<
     return <Text>Loading...</Text>;
   }
 
-  const currentDanger: AvalancheDangerForecast | undefined =
-    forecast.danger.find(item => item.valid_day === ForecastPeriod.Current);
+  const currentDanger: AvalancheDangerForecast | undefined = forecast.danger.find(item => item.valid_day === ForecastPeriod.Current);
   if (!currentDanger) {
     Alert.alert('No danger recorded.', '', [
       {
@@ -131,15 +101,9 @@ export const AvalancheForecast: React.FunctionComponent<
     ]);
     return;
   }
-  const highestDangerToday: DangerLevel = Math.max(
-    currentDanger.lower,
-    currentDanger.middle,
-    currentDanger.upper,
-  );
+  const highestDangerToday: DangerLevel = Math.max(currentDanger.lower, currentDanger.middle, currentDanger.upper);
 
-  let outlookDanger: AvalancheDangerForecast | undefined = forecast.danger.find(
-    item => item.valid_day === ForecastPeriod.Tomorrow,
-  );
+  let outlookDanger: AvalancheDangerForecast | undefined = forecast.danger.find(item => item.valid_day === ForecastPeriod.Tomorrow);
   if (!outlookDanger || !outlookDanger.upper) {
     // sometimes, we get an entry of nulls for tomorrow
     outlookDanger = {
@@ -150,23 +114,16 @@ export const AvalancheForecast: React.FunctionComponent<
     };
   }
 
-  const zone: AvalancheForecastZone | undefined = center.zones.find(
-    item => item.id === forecast_zone_id,
-  );
+  const zone: AvalancheForecastZone | undefined = center.zones.find(item => item.id === forecast_zone_id);
   if (!zone) {
-    Alert.alert(
-      'Avalanche forecast zone not found',
-      `No such zone ${forecast_zone_id} for center ${center_id}.`,
-      [
-        {
-          text: 'OK',
-        },
-      ],
-    );
+    Alert.alert('Avalanche forecast zone not found', `No such zone ${forecast_zone_id} for center ${center_id}.`, [
+      {
+        text: 'OK',
+      },
+    ]);
     return;
   }
-  const elevationBandNames: ElevationBandNames =
-    zone.config.elevation_band_names;
+  const elevationBandNames: ElevationBandNames = zone.config.elevation_band_names;
 
   return (
     <ScrollView style={styles.view}>
@@ -175,25 +132,13 @@ export const AvalancheForecast: React.FunctionComponent<
           <AvalancheDangerIcon style={styles.icon} level={highestDangerToday} />
           <View style={styles.content}>
             <Text style={styles.title}>THE BOTTOM LINE</Text>
-            <RenderHTML
-              source={{html: forecast.bottom_line}}
-              contentWidth={width}
-            />
+            <RenderHTML source={{html: forecast.bottom_line}} contentWidth={width} />
           </View>
         </View>
       </View>
-      <AvalancheDangerTable
-        date={parseISO(forecast.published_time)}
-        current={currentDanger}
-        outlook={outlookDanger}
-        elevation_band_names={elevationBandNames}
-      />
+      <AvalancheDangerTable date={parseISO(forecast.published_time)} current={currentDanger} outlook={outlookDanger} elevation_band_names={elevationBandNames} />
       {forecast.forecast_avalanche_problems.map((problem, index) => (
-        <AvalancheProblemCard
-          key={`avalanche-problem-${index}`}
-          problem={problem}
-          names={elevationBandNames}
-        />
+        <AvalancheProblemCard key={`avalanche-problem-${index}`} problem={problem} names={elevationBandNames} />
       ))}
     </ScrollView>
   );

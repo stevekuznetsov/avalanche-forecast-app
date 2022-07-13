@@ -19,17 +19,10 @@ export const sizeText = (input: AvalancheProblemSize): string => {
   }
 };
 
-export const AvalancheProblemSizeLine: React.FunctionComponent<
-  AvalancheProblemSizeLineProps
-> = ({size}: AvalancheProblemSizeLineProps) => {
+export const AvalancheProblemSizeLine: React.FunctionComponent<AvalancheProblemSizeLineProps> = ({size}: AvalancheProblemSizeLineProps) => {
   return (
     <SeverityNumberLine
-      labels={[
-        sizeText(AvalancheProblemSize.Historic),
-        sizeText(AvalancheProblemSize.VeryLarge),
-        sizeText(AvalancheProblemSize.Large),
-        sizeText(AvalancheProblemSize.Small),
-      ]}
+      labels={[sizeText(AvalancheProblemSize.Historic), sizeText(AvalancheProblemSize.VeryLarge), sizeText(AvalancheProblemSize.Large), sizeText(AvalancheProblemSize.Small)]}
       range={{from: size[0], to: size[1]}}
     />
   );

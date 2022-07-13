@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  AvalancheDangerForecast,
-  dangerText,
-  ElevationBandNames,
-} from '@app/api/avalanche/Types';
+import {AvalancheDangerForecast, dangerText, ElevationBandNames} from '@app/api/avalanche/Types';
 import {Dimensions, ScaledSize, StyleSheet, Text, View} from 'react-native';
-import {
-  AvalancheDangerPyramid,
-  AvalancheDangerTriangle,
-} from '@app/components/AvalancheDangerPyramid';
+import {AvalancheDangerPyramid, AvalancheDangerTriangle} from '@app/components/AvalancheDangerPyramid';
 import {addDays, format} from 'date-fns';
 import {AvalancheDangerIcon} from '@app/components/AvalancheDangerIcon';
 
@@ -25,14 +18,7 @@ export interface AvalancheDangerTableProps {
 
 const initialScreen: ScaledSize = Dimensions.get('screen');
 
-export const AvalancheDangerTable: React.FunctionComponent<
-  AvalancheDangerTableProps
-> = ({
-  date,
-  current,
-  outlook,
-  elevation_band_names,
-}: AvalancheDangerTableProps) => {
+export const AvalancheDangerTable: React.FunctionComponent<AvalancheDangerTableProps> = ({date, current, outlook, elevation_band_names}: AvalancheDangerTableProps) => {
   const [dimensions, setDimensions] = React.useState<ScaledSize>(initialScreen);
 
   // determine screen size when the orientation changes
@@ -60,82 +46,43 @@ export const AvalancheDangerTable: React.FunctionComponent<
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <AvalancheDangerPyramid {...current} />
             <View style={styles.column}>
-              <Text style={{...styles.elevation, ...styles.rowItem}}>
-                {elevation_band_names.upper}
-              </Text>
-              <Text style={{...styles.elevation, ...styles.rowItem}}>
-                {elevation_band_names.middle}
-              </Text>
-              <Text style={{...styles.elevation, ...styles.rowItem}}>
-                {elevation_band_names.lower}
-              </Text>
+              <Text style={{...styles.elevation, ...styles.rowItem}}>{elevation_band_names.upper}</Text>
+              <Text style={{...styles.elevation, ...styles.rowItem}}>{elevation_band_names.middle}</Text>
+              <Text style={{...styles.elevation, ...styles.rowItem}}>{elevation_band_names.lower}</Text>
             </View>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View style={styles.column}>
-                <Text style={{...styles.text, ...styles.rowItem}}>
-                  {dangerText(current.upper)}
-                </Text>
-                <Text style={{...styles.text, ...styles.rowItem}}>
-                  {dangerText(current.middle)}
-                </Text>
-                <Text style={{...styles.text, ...styles.rowItem}}>
-                  {dangerText(current.lower)}
-                </Text>
+                <Text style={{...styles.text, ...styles.rowItem}}>{dangerText(current.upper)}</Text>
+                <Text style={{...styles.text, ...styles.rowItem}}>{dangerText(current.middle)}</Text>
+                <Text style={{...styles.text, ...styles.rowItem}}>{dangerText(current.lower)}</Text>
               </View>
               <View style={styles.column}>
-                <AvalancheDangerIcon
-                  style={styles.rowItem}
-                  level={current.upper}
-                />
-                <AvalancheDangerIcon
-                  style={styles.rowItem}
-                  level={current.middle}
-                />
-                <AvalancheDangerIcon
-                  style={styles.rowItem}
-                  level={current.lower}
-                />
+                <AvalancheDangerIcon style={styles.rowItem} level={current.upper} />
+                <AvalancheDangerIcon style={styles.rowItem} level={current.middle} />
+                <AvalancheDangerIcon style={styles.rowItem} level={current.lower} />
               </View>
             </View>
           </View>
         </View>
         {isLandscape() && (
-          <View
-            style={{flexDirection: 'column', flex: 2, marginHorizontal: 10}}>
+          <View style={{flexDirection: 'column', flex: 2, marginHorizontal: 10}}>
             <Text style={styles.title}>Outlook</Text>
             <Text>{prettyFormat(addDays(date, 1))}</Text>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View style={styles.column}>
-                <Text style={{...styles.text, ...styles.rowItem}}>
-                  {dangerText(outlook.upper)}
-                </Text>
-                <Text style={{...styles.text, ...styles.rowItem}}>
-                  {dangerText(outlook.middle)}
-                </Text>
-                <Text style={{...styles.text, ...styles.rowItem}}>
-                  {dangerText(outlook.lower)}
-                </Text>
+                <Text style={{...styles.text, ...styles.rowItem}}>{dangerText(outlook.upper)}</Text>
+                <Text style={{...styles.text, ...styles.rowItem}}>{dangerText(outlook.middle)}</Text>
+                <Text style={{...styles.text, ...styles.rowItem}}>{dangerText(outlook.lower)}</Text>
               </View>
               <View style={styles.column}>
                 <View style={styles.rowItem}>
-                  <AvalancheDangerIcon
-                    style={styles.smallerIconContainer}
-                    level={outlook.upper}
-                  />
+                  <AvalancheDangerIcon style={styles.smallerIconContainer} level={outlook.upper} />
                 </View>
                 <View style={styles.rowItem}>
-                  <AvalancheDangerIcon
-                    style={styles.smallerIconContainer}
-                    level={outlook.middle}
-                  />
+                  <AvalancheDangerIcon style={styles.smallerIconContainer} level={outlook.middle} />
                 </View>
                 <View style={styles.rowItem}>
-                  <AvalancheDangerIcon
-                    style={styles.smallerIconContainer}
-                    level={outlook.lower}
-                  />
+                  <AvalancheDangerIcon style={styles.smallerIconContainer} level={outlook.lower} />
                 </View>
               </View>
             </View>

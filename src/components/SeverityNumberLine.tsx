@@ -12,9 +12,7 @@ export interface SeverityNumberLineProps {
   range: SeverityNumberLineRange;
 }
 
-export const SeverityNumberLine: React.FunctionComponent<
-  SeverityNumberLineProps
-> = ({labels, range}: SeverityNumberLineProps) => {
+export const SeverityNumberLine: React.FunctionComponent<SeverityNumberLineProps> = ({labels, range}: SeverityNumberLineProps) => {
   const labelStyle = (item: number): any => {
     if (range.from <= item && range.to >= item) {
       return styles.active;
@@ -26,9 +24,7 @@ export const SeverityNumberLine: React.FunctionComponent<
   const strokeWidth: number = 2;
   const axisHeight: number = 200;
   const y = (index: number): number => {
-    return (
-      padding + strokeWidth / 2 + axisHeight * (index / (labels.length - 1))
-    );
+    return padding + strokeWidth / 2 + axisHeight * (index / (labels.length - 1));
   };
   const rangePadding: number = 4;
   const yBetween: number = y(range.to) - y(range.from) + rangePadding * 2;
@@ -44,28 +40,10 @@ export const SeverityNumberLine: React.FunctionComponent<
           strokeLinejoin={'round'}
           strokeMiterlimit={1.5}>
           {labels.map((label, index) => {
-            return (
-              <Path
-                key={`marker-${label}`}
-                stroke={'rgb(81,85,88)'}
-                strokeWidth={strokeWidth}
-                d={`M0,${y(index)}l25,0Z`}
-              />
-            );
+            return <Path key={`marker-${label}`} stroke={'rgb(81,85,88)'} strokeWidth={strokeWidth} d={`M0,${y(index)}l25,0Z`} />;
           })}
-          <Path
-            stroke={'rgb(81,85,88)'}
-            strokeWidth={strokeWidth}
-            d={'M12.5,6l0,200Z'}
-          />
-          <Path
-            stroke={'rgb(81,85,88)'}
-            strokeWidth={strokeWidth}
-            fill={'rgb(200, 202, 206)'}
-            d={`M0,${
-              y(range.from) - rangePadding
-            }l25,0l0,${yBetween}l-25,0l0,${-yBetween}Z`}
-          />
+          <Path stroke={'rgb(81,85,88)'} strokeWidth={strokeWidth} d={'M12.5,6l0,200Z'} />
+          <Path stroke={'rgb(81,85,88)'} strokeWidth={strokeWidth} fill={'rgb(200, 202, 206)'} d={`M0,${y(range.from) - rangePadding}l25,0l0,${yBetween}l-25,0l0,${-yBetween}Z`} />
         </Svg>
       </View>
       <View style={{justifyContent: 'space-between', height: '83%'}}>

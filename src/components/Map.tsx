@@ -1,12 +1,7 @@
 import {ClientProps, NewClient} from '@app/api/avalanche/Client';
 import {useAppDispatch, useAppSelector} from '@app/api/avalanche/hook';
 import {selectMapLayers, updateMapLayers} from '@app/api/avalanche/store';
-import MapView, {
-  LatLng,
-  MapPolygonProps,
-  Polygon,
-  Region,
-} from 'react-native-maps';
+import MapView, {LatLng, MapPolygonProps, Polygon, Region} from 'react-native-maps';
 import React, {ReactNode} from 'react';
 import {MapLayer} from '@app/api/avalanche/Types';
 import {Alert, StyleSheet} from 'react-native';
@@ -30,10 +25,7 @@ const toPolygons = (layer: MapLayer): MapPolygonProps[] => {
       polygons.push({
         nativeID: String(feature.id),
         coordinates: coordinates,
-        fillColor: hexToRGBA(
-          feature.properties.color,
-          feature.properties.fillOpacity,
-        ),
+        fillColor: hexToRGBA(feature.properties.color, feature.properties.fillOpacity),
         strokeColor: feature.properties.stroke,
         // TODO(skuznets): add styling here for opacity etc
         // TODO(skuznets): tap should open forecast info and allow to link to forecast view
@@ -50,9 +42,7 @@ const hexToRGBA = (hex: string, opacity: number): string => {
   return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')';
 };
 
-const boundingRegion = (
-  polygons: Record<string, MapPolygonProps[]>,
-): Region => {
+const boundingRegion = (polygons: Record<string, MapPolygonProps[]>): Region => {
   // for the US, the "top left" corner of a map will have the largest latitude and smallest longitude
   let topLeft: LatLng = {
     longitude: 0,
@@ -105,11 +95,7 @@ const boundingRegion = (
 // for the purposes of React, a `Record` does not change when the values inside
 // change, since it is a reference type - so, when we update we need to re-create
 // the record to get dependent effects to fire
-const update = (
-  previous: Record<string, MapPolygonProps[]>,
-  key: string,
-  value: MapPolygonProps[],
-): Record<string, MapPolygonProps[]> => {
+const update = (previous: Record<string, MapPolygonProps[]>, key: string, value: MapPolygonProps[]): Record<string, MapPolygonProps[]> => {
   const updated: Record<string, MapPolygonProps[]> = {};
   for (const item in previous) {
     if (previous.hasOwnProperty(item)) {
@@ -133,20 +119,13 @@ export interface MapProps {
   centers: string[];
 }
 
-export const Map: React.FunctionComponent<MapProps> = ({
-  clientProps,
-  centers,
-}: MapProps) => {
+export const Map: React.FunctionComponent<MapProps> = ({clientProps, centers}: MapProps) => {
   const client = NewClient(clientProps);
   const mapLayers = useAppSelector(selectMapLayers);
   const dispatch = useAppDispatch();
 
-  const [polygons, setPolygons] = React.useState<
-    Record<string, MapPolygonProps[]>
-  >({});
-  const [fetchErrors, setFetchErrors] = React.useState<Record<string, string>>(
-    {},
-  );
+  const [polygons, setPolygons] = React.useState<Record<string, MapPolygonProps[]>>({});
+  const [fetchErrors, setFetchErrors] = React.useState<Record<string, string>>({});
   const [isReady, setIsReady] = React.useState<boolean>(false);
   const [region, setRegion] = React.useState<Region>(defaultRegion);
 
@@ -156,13 +135,9 @@ export const Map: React.FunctionComponent<MapProps> = ({
     for (const center of centers) {
       // TODO(skuznets): in the future we should use e-tags or similar to re-fetch map layers when they change, since they contain the forecast data and can't be cached forever - or, we can render colors etc from other data
       if (mapLayers && mapLayers[center]) {
-        setPolygons(
-          (
-            state: Record<string, MapPolygonProps[]>,
-          ): Record<string, MapPolygonProps[]> => {
-            return update(state, center, toPolygons(mapLayers[center]));
-          },
-        );
+        setPolygons((state: Record<string, MapPolygonProps[]>): Record<string, MapPolygonProps[]> => {
+          return update(state, center, toPolygons(mapLayers[center]));
+        });
       } else {
         client.mapLayer(
           center,
@@ -170,22 +145,16 @@ export const Map: React.FunctionComponent<MapProps> = ({
             const fetchedLayers: Record<string, MapLayer> = {};
             fetchedLayers[center] = layer;
             dispatch(updateMapLayers(fetchedLayers));
-            setPolygons(
-              (
-                state: Record<string, MapPolygonProps[]>,
-              ): Record<string, MapPolygonProps[]> => {
-                return update(state, center, toPolygons(layer));
-              },
-            );
+            setPolygons((state: Record<string, MapPolygonProps[]>): Record<string, MapPolygonProps[]> => {
+              return update(state, center, toPolygons(layer));
+            });
           },
           (error: Error) => {
             if (mounted) {
-              setFetchErrors(
-                (state: Record<string, string>): Record<string, string> => {
-                  state[center] = String(error);
-                  return state;
-                },
-              );
+              setFetchErrors((state: Record<string, string>): Record<string, string> => {
+                state[center] = String(error);
+                return state;
+              });
             }
           },
         );
@@ -230,11 +199,7 @@ export const Map: React.FunctionComponent<MapProps> = ({
   }
 
   return (
-    <MapView
-      style={styles.map}
-      initialRegion={region}
-      region={region}
-      onLayout={setReady}>
+    <MapView style={styles.map} initialRegion={region} region={region} onLayout={setReady}>
       {isReady && toDisplay.map(a => a)}
     </MapView>
   );

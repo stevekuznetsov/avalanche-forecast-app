@@ -1,9 +1,6 @@
 import React from 'react';
 import {AvalancheProblemLikelihood} from '@app/api/avalanche/Types';
-import {
-  SeverityNumberLine,
-  SeverityNumberLineRange,
-} from '@app/components/SeverityNumberLine';
+import {SeverityNumberLine, SeverityNumberLineRange} from '@app/components/SeverityNumberLine';
 
 export interface AvalancheProblemLikelihoodLineProps {
   likelihood: AvalancheProblemLikelihood;
@@ -17,9 +14,7 @@ export const likelihoodText = (input: AvalancheProblemLikelihood): string => {
     .join(' ');
 };
 
-const likelihoodToRange = (
-  likelihood: AvalancheProblemLikelihood,
-): SeverityNumberLineRange => {
+const likelihoodToRange = (likelihood: AvalancheProblemLikelihood): SeverityNumberLineRange => {
   let index: number = 4;
   switch (likelihood) {
     case AvalancheProblemLikelihood.AlmostCertain:
@@ -36,9 +31,7 @@ const likelihoodToRange = (
   return {from: index, to: index};
 };
 
-export const AvalancheProblemLikelihoodLine: React.FunctionComponent<
-  AvalancheProblemLikelihoodLineProps
-> = ({likelihood}: AvalancheProblemLikelihoodLineProps) => {
+export const AvalancheProblemLikelihoodLine: React.FunctionComponent<AvalancheProblemLikelihoodLineProps> = ({likelihood}: AvalancheProblemLikelihoodLineProps) => {
   return (
     <SeverityNumberLine
       labels={[
