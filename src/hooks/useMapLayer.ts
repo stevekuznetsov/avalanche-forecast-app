@@ -3,8 +3,7 @@ import React from 'react';
 import axios, {AxiosError} from 'axios';
 import {useQuery} from 'react-query';
 
-import {ClientContext} from '../../App';
-import {ClientProps} from '@app/api/avalanche/Client';
+import {ClientContext, ClientProps} from '../../App';
 import {MapLayer} from '@app/api/avalanche/Types';
 
 export const useMapLayer = (center_id: string) => {

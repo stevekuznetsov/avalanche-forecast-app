@@ -4,8 +4,7 @@ import axios, {AxiosError} from 'axios';
 import {useQuery} from 'react-query';
 import {add, format} from 'date-fns';
 
-import {ClientContext} from '../../App';
-import {ClientProps} from '@app/api/avalanche/Client';
+import {ClientContext, ClientProps} from '../../App';
 import {Product} from '@app/api/avalanche/Types';
 
 export const useAvalancheForecastFragment = (center_id: string, forecast_zone_id: number, date: Date) => {

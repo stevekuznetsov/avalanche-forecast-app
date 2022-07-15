@@ -12,6 +12,7 @@ import {AvalancheProblemCard} from '@app/components/AvalancheProblemCard';
 import {useAvalancheForecast} from '@app/hooks/useAvalancheForecast';
 import {useAvalancheCenterMetadata} from '@app/hooks/useAvalancheCenterMetadata';
 import {useRefreshByUser} from '@app/hooks/useRefreshByUser';
+import {useRefreshOnFocus} from '@app/hooks/useRefreshOnFocus';
 
 export interface AvalancheForecastProps {
   center_id: string;
@@ -32,6 +33,7 @@ export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> 
     refetch: refetchForecast,
   } = useAvalancheForecast(center_id, forecast_zone_id, forecastDate);
   const {isRefetchingByUser, refetchByUser} = useRefreshByUser(refetchCenter, refetchForecast);
+  useRefreshOnFocus(refetchCenter, refetchForecast);
 
   if (isForecastLoading || isCenterLoading || !center || !forecast) {
     return <ActivityIndicator />;

@@ -3,8 +3,7 @@ import React from 'react';
 import axios, {AxiosError} from 'axios';
 import {useQuery} from 'react-query';
 
-import {ClientContext} from '../../App';
-import {ClientProps} from '@app/api/avalanche/Client';
+import {ClientContext, ClientProps} from '../../App';
 import {AvalancheCenter} from '@app/api/avalanche/Types';
 
 export const useAvalancheCenterMetadata = (center_id: string) => {

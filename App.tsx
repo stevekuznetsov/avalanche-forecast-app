@@ -1,16 +1,18 @@
 import React, {Context} from 'react';
 
-import {StyleSheet} from 'react-native';
+import {AppStateStatus, Platform, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator, NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
 import {formatISO} from 'date-fns';
-import {QueryClient, QueryClientProvider} from 'react-query';
+import {focusManager, QueryClient, QueryClientProvider} from 'react-query';
 
 import {Map} from '@app/components/Map';
 import {AvalancheForecast} from '@app/components/AvalancheForecast';
 import {AvalancheCenterSelector} from '@app/components/AvalancheCenterSelector';
+import {useOnlineManager} from '@app/hooks/useOnlineManager';
+import {useAppState} from '@app/hooks/useAppState';
 
 export interface ClientProps {
   host: string;
@@ -69,7 +71,18 @@ declare global {
   }
 }
 
+const onAppStateChange = (status: AppStateStatus) => {
+  // React Query already supports in web browser refetch on window focus by default
+  if (Platform.OS !== 'web') {
+    focusManager.setFocused(status === 'active');
+  }
+};
+
 const App = () => {
+  useOnlineManager();
+
+  useAppState(onAppStateChange);
+
   return (
     <ClientContext.Provider value={defaultClientProps}>
       <QueryClientProvider client={queryClient}>
