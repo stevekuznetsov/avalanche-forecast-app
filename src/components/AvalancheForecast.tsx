@@ -5,7 +5,7 @@ import RenderHTML from 'react-native-render-html';
 
 import {parseISO} from 'date-fns';
 
-import {AvalancheDangerForecast, AvalancheForecastZone, DangerLevel, ElevationBandNames, ForecastPeriod} from '@app/api/avalanche/Types';
+import {AvalancheDangerForecast, AvalancheForecastZone, AvalancheForecastZoneSummary, DangerLevel, ElevationBandNames, ForecastPeriod} from '@app/api/avalanche/Types';
 import {AvalancheDangerTable} from '@app/components/AvalancheDangerTable';
 import {AvalancheDangerIcon} from '@app/components/AvalancheDangerIcon';
 import {AvalancheProblemCard} from '@app/components/AvalancheProblemCard';
@@ -13,6 +13,7 @@ import {useAvalancheForecast} from '@app/hooks/useAvalancheForecast';
 import {useAvalancheCenterMetadata} from '@app/hooks/useAvalancheCenterMetadata';
 import {useRefreshByUser} from '@app/hooks/useRefreshByUser';
 import {useRefreshOnFocus} from '@app/hooks/useRefreshOnFocus';
+import {useNavigation} from '@react-navigation/native';
 
 export interface AvalancheForecastProps {
   center_id: string;
@@ -22,6 +23,7 @@ export interface AvalancheForecastProps {
 
 export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> = ({center_id, date, forecast_zone_id}: AvalancheForecastProps) => {
   const forecastDate: Date = parseISO(date);
+  const navigation = useNavigation();
 
   const {width} = useWindowDimensions();
   const {isLoading: isCenterLoading, isError: isCenterError, data: center, error: centerError, refetch: refetchCenter} = useAvalancheCenterMetadata(center_id);
@@ -34,6 +36,15 @@ export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> 
   } = useAvalancheForecast(center_id, forecast_zone_id, forecastDate);
   const {isRefetchingByUser, refetchByUser} = useRefreshByUser(refetchCenter, refetchForecast);
   useRefreshOnFocus(refetchCenter, refetchForecast);
+
+  React.useEffect(() => {
+    if (forecast) {
+      const thisZone: AvalancheForecastZoneSummary | undefined = forecast.forecast_zone.find(zone => zone.id === forecast_zone_id);
+      if (thisZone) {
+        navigation.setOptions({title: thisZone.name});
+      }
+    }
+  }, [forecast]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isForecastLoading || isCenterLoading || !center || !forecast) {
     return <ActivityIndicator />;

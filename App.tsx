@@ -89,9 +89,9 @@ const App = () => {
         <SafeAreaProvider>
           <NavigationContainer>
             <Stack.Navigator initialRouteName="centerSelector">
-              <Stack.Screen name="centerSelector" component={SelectorScreen} />
-              <Stack.Screen name="zoneSelector" component={MapScreen} />
-              <Stack.Screen name="forecast" component={ForecastScreen} />
+              <Stack.Screen name="centerSelector" component={SelectorScreen} options={{title: 'Select an Avalanche Center'}} />
+              <Stack.Screen name="zoneSelector" component={MapScreen} options={({route}) => ({title: route.params.center_id})} />
+              <Stack.Screen name="forecast" component={ForecastScreen} options={({route}) => ({title: String(route.params.forecast_zone_id)})} />
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaProvider>
