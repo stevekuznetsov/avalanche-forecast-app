@@ -1,7 +1,9 @@
-import {AvalancheProblemLocation, ElevationBandNames} from '@app/api/avalanche/Types';
-import Svg, {Path} from 'react-native-svg';
-import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
 import React, {PropsWithChildren, ReactElement} from 'react';
+
+import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
+import Svg, {Path} from 'react-native-svg';
+
+import {AvalancheProblemLocation, ElevationBandNames} from '@app/api/avalanche/Types';
 
 export interface DangerRoseProps {
   style: ViewStyle;

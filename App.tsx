@@ -1,77 +1,89 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+import React, {Context} from 'react';
 
-import React from 'react';
 import {StyleSheet} from 'react-native';
-import {Provider} from 'react-redux';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator, NativeStackScreenProps} from '@react-navigation/native-stack';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+
+import {formatISO} from 'date-fns';
+import {QueryClient, QueryClientProvider} from 'react-query';
 
 import {Map} from '@app/components/Map';
-import {store} from '@app/api/avalanche/store';
 import {AvalancheForecast} from '@app/components/AvalancheForecast';
-import {ClientProps} from '@app/api/avalanche/Client';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {AvalancheCenterSelector} from '@app/components/AvalancheCenterSelector';
-import { formatISO } from "date-fns";
 
-const clientProps: ClientProps = {host: 'https://api.avalanche.org'};
+export interface ClientProps {
+  host: string;
+}
 
-const SelectorScreen = ({navigation}) => {
+const defaultClientProps: ClientProps = {host: 'https://api.avalanche.org'};
+export const ClientContext: Context<ClientProps> = React.createContext<ClientProps>(defaultClientProps);
+const queryClient: QueryClient = new QueryClient();
+
+const SelectorScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <AvalancheCenterSelector clientProps={clientProps} date={formatISO(new Date('2022-03-01'))} navigation={navigation} />
+      <AvalancheCenterSelector date={formatISO(new Date('2022-03-01'))} />
     </SafeAreaView>
   );
 };
 
-const MapScreen = ({route, navigation}) => {
-  const {centerId, date} = route.params;
+type MapScreenProps = NativeStackScreenProps<StackParamList, 'zoneSelector'>;
+const MapScreen = ({route}: MapScreenProps) => {
+  const {center_id, date} = route.params;
   return (
     <SafeAreaView style={styles.container}>
-      <Map clientProps={clientProps} centers={[centerId]} date={date} navigation={navigation} />
+      <Map centers={[center_id]} date={date} />
     </SafeAreaView>
   );
 };
 
-const ForecastScreen = ({route}) => {
+type ForecastScreenProps = NativeStackScreenProps<StackParamList, 'forecast'>;
+const ForecastScreen = ({route}: ForecastScreenProps) => {
   const {center_id, forecast_zone_id, date} = route.params;
   return (
     <SafeAreaView style={styles.container}>
-      <AvalancheForecast clientProps={clientProps} center_id={center_id} forecast_zone_id={forecast_zone_id} date={date} />
+      <AvalancheForecast center_id={center_id} forecast_zone_id={forecast_zone_id} date={date} />
     </SafeAreaView>
   );
 };
 
-const Stack = createNativeStackNavigator();
+type StackParamList = {
+  centerSelector: undefined;
+  zoneSelector: {
+    center_id: string;
+    date: string;
+  };
+  forecast: {
+    center_id: string;
+    forecast_zone_id: number;
+    date: string;
+  };
+};
+
+const Stack = createNativeStackNavigator<StackParamList>();
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends StackParamList {}
+  }
+}
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Select An Avalanche Center">
-            <Stack.Screen name="Select An Avalanche Center" component={SelectorScreen} />
-            <Stack.Screen name="Select An Avalanche Forecast Zone" component={MapScreen} />
-            <Stack.Screen name="Avalanche Forecast" component={ForecastScreen} />
-          </Stack.Navigator>
-          {/*<Map clientProps={clientProps} centers={centers} />*/}
-          {/*<AvalancheForecast*/}
-          {/*  clientProps={clientProps}*/}
-          {/*  id={111039}*/}
-          {/*  center_id={'NWAC'}*/}
-          {/*  forecast_zone_id={428}*/}
-          {/*/>*/}
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </Provider>
+    <ClientContext.Provider value={defaultClientProps}>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="centerSelector">
+              <Stack.Screen name="centerSelector" component={SelectorScreen} />
+              <Stack.Screen name="zoneSelector" component={MapScreen} />
+              <Stack.Screen name="forecast" component={ForecastScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </QueryClientProvider>
+    </ClientContext.Provider>
   );
 };
 

@@ -1,56 +1,48 @@
 import React from 'react';
-import {ClientProps} from '@app/api/avalanche/Client';
-import {useCenterMetadata, useForecast} from '@app/api/avalanche/hook';
-import {AvalancheDangerForecast, AvalancheForecastZone, DangerLevel, ElevationBandNames, ForecastPeriod, Product} from '@app/api/avalanche/Types';
-import {Alert, ScrollView, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
-import {parseISO} from 'date-fns';
-import {AvalancheDangerTable} from '@app/components/AvalancheDangerTable';
+
+import {ActivityIndicator, Alert, RefreshControl, ScrollView, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import RenderHTML from 'react-native-render-html';
+
+import {parseISO} from 'date-fns';
+
+import {AvalancheDangerForecast, AvalancheForecastZone, DangerLevel, ElevationBandNames, ForecastPeriod} from '@app/api/avalanche/Types';
+import {AvalancheDangerTable} from '@app/components/AvalancheDangerTable';
 import {AvalancheDangerIcon} from '@app/components/AvalancheDangerIcon';
 import {AvalancheProblemCard} from '@app/components/AvalancheProblemCard';
+import {useAvalancheForecast} from '@app/hooks/useAvalancheForecast';
+import {useAvalancheCenterMetadata} from '@app/hooks/useAvalancheCenterMetadata';
+import {useRefreshByUser} from '@app/hooks/useRefreshByUser';
 
 export interface AvalancheForecastProps {
-  clientProps: ClientProps;
   center_id: string;
   date: string;
   forecast_zone_id: number;
 }
 
-export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> = ({clientProps, center_id, date, forecast_zone_id}: AvalancheForecastProps) => {
+export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> = ({center_id, date, forecast_zone_id}: AvalancheForecastProps) => {
   const forecastDate: Date = parseISO(date);
 
   const {width} = useWindowDimensions();
-  const {forecast, fetchError} = useForecast(clientProps, center_id, forecast_zone_id, forecastDate);
-  const {center, centerFetchError} = useCenterMetadata(clientProps, center_id);
+  const {isLoading: isCenterLoading, isError: isCenterError, data: center, error: centerError, refetch: refetchCenter} = useAvalancheCenterMetadata(center_id);
+  const {
+    isLoading: isForecastLoading,
+    isError: isForecastError,
+    data: forecast,
+    error: forecastError,
+    refetch: refetchForecast,
+  } = useAvalancheForecast(center_id, forecast_zone_id, forecastDate);
+  const {isRefetchingByUser, refetchByUser} = useRefreshByUser(refetchCenter, refetchForecast);
 
-  if (centerFetchError) {
-    Alert.alert('Error fetching center metadata.', centerFetchError, [
-      {
-        text: 'OK',
-      },
-    ]);
+  if (isForecastLoading || isCenterLoading || !center || !forecast) {
+    return <ActivityIndicator />;
+  }
+  if (isForecastError || isCenterError) {
     return (
       <View>
-        <Text>{centerFetchError}</Text>
+        {isCenterError && <Text>{`Could not fetch ${center_id} properties: ${centerError?.message}.`}</Text>}
+        {isForecastError && <Text>{`Could not fetch forecast for ${center_id} zone ${forecast_zone_id}: ${forecastError?.message}.`}</Text>}
       </View>
     );
-  }
-
-  if (fetchError) {
-    Alert.alert('Error fetching forecast.', fetchError, [
-      {
-        text: 'OK',
-      },
-    ]);
-    return (
-      <View>
-        <Text>{fetchError}</Text>
-      </View>
-    );
-  }
-
-  if (!forecast || !center) {
-    return <Text>Loading...</Text>;
   }
 
   const currentDanger: AvalancheDangerForecast | undefined = forecast.danger.find(item => item.valid_day === ForecastPeriod.Current);
@@ -96,8 +88,9 @@ export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> 
   const elevationBandNames: ElevationBandNames = zone.config.elevation_band_names;
 
   return (
-    <ScrollView style={styles.view}>
+    <ScrollView style={styles.view} refreshControl={<RefreshControl refreshing={isRefetchingByUser} onRefresh={refetchByUser} />}>
       <View>
+        <Text style={styles.title}>{zone.name}</Text>
         <View style={styles.bound}>
           <AvalancheDangerIcon style={styles.icon} level={highestDangerToday} />
           <View style={styles.content}>

@@ -1,4 +1,6 @@
 // MapLayer describes forecast zones to be drawn for an avalanche center
+import { Mutation } from "react-query";
+
 export interface MapLayer {
   type: string; // TODO(skuznets): is this ever something other than 'FeatureCollection'?
   features: Feature[];
@@ -91,13 +93,20 @@ export const dangerText = (level: DangerLevel): string => {
   return `${prefix} (${display})`;
 };
 
-export interface FeatureComponent {
-  type: string;
-  // coordinates encodes a list of points, each as a two-member array [longitude,latitude]
-  // for a type=Polygon, this a three-dimensional array number[][][]
-  // for a type=MultiPolygon, this a four-dimensional array number[][][][]
-  coordinates: any;
+// coordinates encodes a list of points, each as a two-member array [longitude,latitude]
+// for a type=Polygon, this a three-dimensional array number[][][]
+// for a type=MultiPolygon, this a four-dimensional array number[][][][]
+export interface Polygon {
+  type: 'Polygon';
+  coordinates: number[][][];
 }
+
+export interface MultiPolygon {
+  type: 'MultiPolygon';
+  coordinates: number[][][][];
+}
+
+export type FeatureComponent = Polygon | MultiPolygon;
 
 export interface Warning {
   product: Product;

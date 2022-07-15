@@ -1,8 +1,11 @@
 import React from 'react';
-import {AvalancheDangerForecast, dangerText, ElevationBandNames} from '@app/api/avalanche/Types';
+
 import {Dimensions, ScaledSize, StyleSheet, Text, View} from 'react-native';
-import {AvalancheDangerPyramid, AvalancheDangerTriangle} from '@app/components/AvalancheDangerPyramid';
+
 import {addDays, format} from 'date-fns';
+
+import {AvalancheDangerForecast, dangerText, ElevationBandNames} from '@app/api/avalanche/Types';
+import {AvalancheDangerPyramid, AvalancheDangerTriangle} from '@app/components/AvalancheDangerPyramid';
 import {AvalancheDangerIcon} from '@app/components/AvalancheDangerIcon';
 
 const prettyFormat = (date: Date): string => {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {AvalancheProblemSize} from '@app/api/avalanche/Types';
 import {SeverityNumberLine} from '@app/components/SeverityNumberLine';
 

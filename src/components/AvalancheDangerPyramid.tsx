@@ -1,8 +1,11 @@
 import React from 'react';
-import {AvalancheDangerForecast, DangerLevel} from '@app/api/avalanche/Types';
+
 import Svg, {Path} from 'react-native-svg';
 import {StyleSheet} from 'react-native';
+
 import Color from 'color';
+
+import {AvalancheDangerForecast, DangerLevel} from '@app/api/avalanche/Types';
 
 export const colorFor = (danger: DangerLevel): Color => {
   switch (danger) {

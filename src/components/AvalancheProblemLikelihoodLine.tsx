@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {AvalancheProblemLikelihood} from '@app/api/avalanche/Types';
 import {SeverityNumberLine, SeverityNumberLineRange} from '@app/components/SeverityNumberLine';
 

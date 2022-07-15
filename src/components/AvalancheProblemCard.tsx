@@ -1,6 +1,8 @@
 import React from 'react';
-import {AvalancheProblem, AvalancheProblemSize, ElevationBandNames} from '@app/api/avalanche/Types';
+
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+
+import {AvalancheProblem, AvalancheProblemSize, ElevationBandNames} from '@app/api/avalanche/Types';
 import {AnnotatedDangerRose, DangerRose} from '@app/components/DangerRose';
 import {AvalancheProblemIcon} from '@app/components/AvalancheProblemIcon';
 import {AvalancheProblemLikelihoodLine, likelihoodText} from '@app/components/AvalancheProblemLikelihoodLine';
