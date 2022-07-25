@@ -35,7 +35,6 @@ export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> 
     refetch: refetchForecast,
   } = useAvalancheForecast(center_id, forecast_zone_id, forecastDate);
   const {isRefetchingByUser, refetchByUser} = useRefreshByUser(refetchCenter, refetchForecast);
-  useRefreshOnFocus(refetchCenter, refetchForecast);
 
   React.useEffect(() => {
     if (forecast) {
