@@ -100,6 +100,7 @@ export const AnnotatedDangerRose: React.FunctionComponent<AnnotatedDangerRosePro
     <View>
       <View
         style={{
+          width: '80%',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'flex-start',

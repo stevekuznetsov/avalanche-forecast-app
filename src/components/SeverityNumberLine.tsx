@@ -60,7 +60,8 @@ export const SeverityNumberLine: React.FunctionComponent<SeverityNumberLineProps
 
 const styles = StyleSheet.create({
   container: {
-    height: '50%',
+    aspectRatio: 4 / 5,
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

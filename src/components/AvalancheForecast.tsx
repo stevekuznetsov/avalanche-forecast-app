@@ -112,9 +112,15 @@ export const AvalancheForecast: React.FunctionComponent<AvalancheForecastProps> 
         </View>
       </View>
       <AvalancheDangerTable date={parseISO(forecast.published_time)} current={currentDanger} outlook={outlookDanger} elevation_band_names={elevationBandNames} />
+      <Text style={styles.heading}>Avalanche Problems</Text>
       {forecast.forecast_avalanche_problems.map((problem, index) => (
         <AvalancheProblemCard key={`avalanche-problem-${index}`} problem={problem} names={elevationBandNames} />
       ))}
+      <Text style={styles.heading}>Forecast Discussion</Text>
+      <View style={styles.discussion}>
+        <RenderHTML source={{html: forecast.hazard_discussion}} contentWidth={width} />
+      </View>
+      <Text style={styles.heading}>Media</Text>
     </ScrollView>
   );
 };
@@ -147,5 +153,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
+  },
+  heading: {
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    paddingBottom: 10,
+    marginHorizontal: 10,
+  },
+  discussion: {
+    flexDirection: 'column',
+    paddingTop: 0,
+    paddingLeft: 10,
+    paddingBottom: 0,
+    paddingRight: 10,
   },
 });

@@ -159,7 +159,7 @@ export interface AvalancheProblem {
   discussion: string;
   problem_description: string;
   icon: string;
-  media: MediaItem[];
+  media: MediaItem;
 }
 
 export enum AvalancheProblemType {
